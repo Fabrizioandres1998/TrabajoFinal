@@ -48,7 +48,7 @@ public class GestiondeTratamientos extends javax.swing.JInternalFrame {
         jBeliminar = new javax.swing.JButton();
         jBbuscar = new javax.swing.JButton();
 
-        jDesktopPane1.setBackground(new java.awt.Color(204, 204, 255));
+        jDesktopPane1.setBackground(new java.awt.Color(0, 0, 0));
 
         jGestionDeTratamientos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jGestionDeTratamientos.setForeground(new java.awt.Color(153, 0, 153));

@@ -1,26 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class DiaDeSpa {
+
     private int codPack;
     private LocalDateTime fechaYHora;
     private String preferencias;
-    private Cliente cliente; 
+    private Cliente cliente;
     private boolean estado;
-    private List<Turno> sesiones; 
+    private List<Sesion_turno> sesiones;
     private double monto;
 
-    
     public DiaDeSpa() {
     }
 
-    
-    public DiaDeSpa(LocalDateTime fechaYHora, String preferencias, Cliente cliente, boolean estado, List<Turno> sesiones, double monto) {
+    public DiaDeSpa(LocalDateTime fechaYHora, String preferencias, Cliente cliente, boolean estado, List<Sesion_turno> sesiones, double monto) {
         this.fechaYHora = fechaYHora;
         this.preferencias = preferencias;
         this.cliente = cliente;
@@ -28,9 +24,8 @@ public class DiaDeSpa {
         this.sesiones = sesiones;
         this.monto = monto;
     }
-    
-    
-    public DiaDeSpa(int codPack, LocalDateTime fechaYHora, String preferencias, Cliente cliente, boolean estado, List<Turno> sesiones, double monto) {
+
+    public DiaDeSpa(int codPack, LocalDateTime fechaYHora, String preferencias, Cliente cliente, boolean estado, List<Sesion_turno> sesiones, double monto) {
         this.codPack = codPack;
         this.fechaYHora = fechaYHora;
         this.preferencias = preferencias;
@@ -40,7 +35,6 @@ public class DiaDeSpa {
         this.monto = monto;
     }
 
-    
     public int getCodPack() {
         return codPack;
     }
@@ -81,11 +75,11 @@ public class DiaDeSpa {
         this.estado = estado;
     }
 
-    public List<Turno> getSesiones() {
+    public List<Sesion_turno> getSesiones() {
         return sesiones;
     }
 
-    public void setSesiones(List<Turno> sesiones) {
+    public void setSesiones(List<Sesion_turno> sesiones) {
         this.sesiones = sesiones;
     }
 
@@ -96,7 +90,7 @@ public class DiaDeSpa {
     public void setMonto(double monto) {
         this.monto = monto;
     }
-    
+
     @Override
     public String toString() {
         return "Día de Spa N° " + codPack + " - " + fechaYHora.toLocalDate();

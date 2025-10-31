@@ -1,31 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-/**
- *
- * @author Fabrizio
- */
 public class Consultorio {
+
     private int nroConsultorio;
     private String usos;
     private String equipamiento;
-    private boolean apto; 
+    private boolean apto;
 
-    
     public Consultorio() {
     }
 
-    
     public Consultorio(String usos, String equipamiento, boolean apto) {
         this.usos = usos;
         this.equipamiento = equipamiento;
         this.apto = apto;
     }
 
-    
     public Consultorio(int nroConsultorio, String usos, String equipamiento, boolean apto) {
         this.nroConsultorio = nroConsultorio;
         this.usos = usos;
@@ -33,7 +23,6 @@ public class Consultorio {
         this.apto = apto;
     }
 
-    
     public int getNroConsultorio() {
         return nroConsultorio;
     }
@@ -65,7 +54,7 @@ public class Consultorio {
     public void setApto(boolean apto) {
         this.apto = apto;
     }
-    
+
     @Override
     public String toString() {
         return "Consultorio N° " + nroConsultorio;

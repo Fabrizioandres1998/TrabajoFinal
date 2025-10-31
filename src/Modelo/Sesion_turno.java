@@ -1,31 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
+
 import java.time.LocalDateTime;
 import java.util.List;
-/**
- *
- * @author Fabrizio
- */
-public class Turno {
+
+public class Sesion_turno {
+
     private int codSesion;
     private LocalDateTime fechaHoraInicio;
     private LocalDateTime fechaHoraFin;
-    private Tratamiento tratamiento; 
-    private Consultorio consultorio; 
-    private Masajista masajista;     
-    private List<Instalacion> instalaciones; 
-    private DiaDeSpa diaDeSpa;       
+    private Tratamiento tratamiento;
+    private Consultorio consultorio;
+    private Masajista masajista;
+    private List<Instalacion> instalaciones;
+    private DiaDeSpa diaDeSpa;
     private boolean estado;
 
-    
-    public Turno() {
+    public Sesion_turno() {
     }
 
-    
-    public Turno(LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, Tratamiento tratamiento, Consultorio consultorio, Masajista masajista, List<Instalacion> instalaciones, DiaDeSpa diaDeSpa, boolean estado) {
+    public Sesion_turno(LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, Tratamiento tratamiento, Consultorio consultorio, Masajista masajista, List<Instalacion> instalaciones, DiaDeSpa diaDeSpa, boolean estado) {
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
         this.tratamiento = tratamiento;
@@ -36,8 +29,7 @@ public class Turno {
         this.estado = estado;
     }
 
-    
-    public Turno(int codSesion, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, Tratamiento tratamiento, Consultorio consultorio, Masajista masajista, List<Instalacion> instalaciones, DiaDeSpa diaDeSpa, boolean estado) {
+    public Sesion_turno(int codSesion, LocalDateTime fechaHoraInicio, LocalDateTime fechaHoraFin, Tratamiento tratamiento, Consultorio consultorio, Masajista masajista, List<Instalacion> instalaciones, DiaDeSpa diaDeSpa, boolean estado) {
         this.codSesion = codSesion;
         this.fechaHoraInicio = fechaHoraInicio;
         this.fechaHoraFin = fechaHoraFin;
@@ -49,7 +41,6 @@ public class Turno {
         this.estado = estado;
     }
 
-    
     public int getCodSesion() {
         return codSesion;
     }

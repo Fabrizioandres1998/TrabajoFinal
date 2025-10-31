@@ -1,25 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-/**
- *
- * @author Fabrizio
- */
 public class Masajista {
-    private String matricula; 
+
+    private String matricula;
     private String nombreYApellido;
     private String telefono;
-    private String especialidad; 
+    private String especialidad;
     private boolean estado;
 
-    
     public Masajista() {
     }
 
-    
     public Masajista(String matricula, String nombreYApellido, String telefono, String especialidad, boolean estado) {
         this.matricula = matricula;
         this.nombreYApellido = nombreYApellido;
@@ -27,8 +18,7 @@ public class Masajista {
         this.especialidad = especialidad;
         this.estado = estado;
     }
-    
-    
+
     public Masajista(String nombreYApellido, String telefono, String especialidad, boolean estado) {
         this.nombreYApellido = nombreYApellido;
         this.telefono = telefono;
@@ -36,7 +26,6 @@ public class Masajista {
         this.estado = estado;
     }
 
-    
     public String getMatricula() {
         return matricula;
     }
@@ -76,7 +65,7 @@ public class Masajista {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-    
+
     @Override
     public String toString() {
         return matricula + " - " + nombreYApellido;

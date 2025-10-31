@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
-/**
- *
- * @author Fabrizio
- */
 public class Instalacion {
     private int codInstal;
     private String nombre;
-    private String detalleDeUso;
+    private String detalle_de_uso;
     private double precio30m; // Precio por 30 minutos de uso
     private boolean estado;
 
@@ -20,18 +12,18 @@ public class Instalacion {
     }
 
     
-    public Instalacion(String nombre, String detalleDeUso, double precio30m, boolean estado) {
+    public Instalacion(String nombre, String detalle_de_uso, double precio30m, boolean estado) {
         this.nombre = nombre;
-        this.detalleDeUso = detalleDeUso;
+        this.detalle_de_uso = detalle_de_uso;
         this.precio30m = precio30m;
         this.estado = estado;
     }
     
     
-    public Instalacion(int codInstal, String nombre, String detalleDeUso, double precio30m, boolean estado) {
+    public Instalacion(int codInstal, String nombre, String detalle_de_uso, double precio30m, boolean estado) {
         this.codInstal = codInstal;
         this.nombre = nombre;
-        this.detalleDeUso = detalleDeUso;
+        this.detalle_de_uso = detalle_de_uso;
         this.precio30m = precio30m;
         this.estado = estado;
     }
@@ -53,12 +45,12 @@ public class Instalacion {
         this.nombre = nombre;
     }
 
-    public String getDetalleDeUso() {
-        return detalleDeUso;
+    public String getdetalle_de_uso() {
+        return detalle_de_uso;
     }
 
-    public void setDetalleDeUso(String detalleDeUso) {
-        this.detalleDeUso = detalleDeUso;
+    public void setdetalle_de_uso(String detalle_de_uso) {
+        this.detalle_de_uso = detalle_de_uso;
     }
 
     public double getPrecio30m() {

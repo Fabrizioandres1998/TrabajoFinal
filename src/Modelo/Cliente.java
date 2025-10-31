@@ -70,7 +70,7 @@ public class Cliente {
         this.afecciones = afecciones;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
