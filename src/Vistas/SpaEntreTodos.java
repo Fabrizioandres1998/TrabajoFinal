@@ -1,38 +1,38 @@
-package Vistas;
-
-import Modelo.Cliente;
-import Modelo.Consultorio;
-import Modelo.Producto;
-import Modelo.Tratamiento;
-import Persistencia.ClienteData;
-import Persistencia.Conexion;
-import Persistencia.ConsultorioData;
-import Persistencia.ProductoData;
-import Persistencia.TratamientoData;
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
-public class SpaEntreTodos {
-
-    public static void main(String[] args) {
-
-        String url = "jdbc:mariadb://localhost:3306/spayrelax";
-        String usuario = "root";
-        String password = "";
-
-        Conexion con = new Conexion(url, usuario, password);
-        Connection conex = (Connection) con.obtenerConexion();
-
-        if (con.obtenerConexion() != null) {
-            System.out.println("Conectado correctamente a la base de datos.");
-        } else {
-            System.out.println("No se pudo conectar.");
-            return; // salir si no hay conexión
-        }
-
-        Scanner sc = new Scanner(System.in);
+//package Vistas;
+//
+//import Modelo.Cliente;
+//import Modelo.Consultorio;
+//import Modelo.Producto;
+//import Modelo.Tratamiento;
+//import Persistencia.ClienteData;
+//import Persistencia.Conexion;
+//import Persistencia.ConsultorioData;
+//import Persistencia.ProductoData;
+//import Persistencia.TratamientoData;
+//import java.sql.Connection;
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.Scanner;
+//
+//public class SpaEntreTodos {
+//
+//    public static void main(String[] args) {
+//
+//        String url = "jdbc:mariadb://localhost:3306/spayrelax";
+//        String usuario = "root";
+//        String password = "";
+//
+//        Conexion con = new Conexion(url, usuario, password);
+//        Connection conex = (Connection) con.obtenerConexion();
+//
+//        if (con.obtenerConexion() != null) {
+//            System.out.println("Conectado correctamente a la base de datos.");
+//        } else {
+//            System.out.println("No se pudo conectar.");
+//            return; // salir si no hay conexión
+//        }
+//
+//        Scanner sc = new Scanner(System.in);
 
 //        // --- Datos del tratamiento ---
 //        System.out.print("Ingrese el nombre del tratamiento: ");
@@ -182,5 +182,5 @@ public class SpaEntreTodos {
 //        for (Consultorio c : consultorios) {
 //            System.out.println("N° " + c.getNroConsultorio() + " | Usos: " + c.getUsos() + " | Equipamiento: " + c.getEquipamiento());
 //        }
-    }
-}
+//    }
+//}

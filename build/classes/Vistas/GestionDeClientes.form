@@ -24,7 +24,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jDesktopPane3" alignment="1" max="32767" attributes="0"/>
+          <Component id="jDesktopPane3" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -39,81 +39,110 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="Jcodigocliente" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jedad" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jnombrecompleto" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jtelefono" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jtext1" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
-                              <Component id="jtext3" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
-                              <Component id="jtext4" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
-                              <Component id="jtext2" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
-                              <Component id="jCactivo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="jGestiondeClientes9" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                          <Component id="jBNuevo9" min="-2" pref="61" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                          <Component id="jbNuevo" min="-2" pref="61" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="jBguardar" min="-2" pref="58" max="-2" attributes="0"/>
+                          <Component id="jbGuardar" min="-2" pref="58" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="jBmodificar" min="-2" pref="63" max="-2" attributes="0"/>
+                          <Component id="jbModificar" min="-2" pref="63" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="jBeliminar" min="-2" pref="57" max="-2" attributes="0"/>
+                          <Component id="jbEliminar" min="-2" pref="57" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="jBbuscar" min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="jbBuscar" min="-2" pref="61" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jdni" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jtfDni" min="-2" pref="213" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jtelefono" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jedad" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jafecciones" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jcbActivo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jtfTelefono" min="-2" pref="213" max="-2" attributes="0"/>
+                                      <Component id="jtfEdad" min="-2" pref="213" max="-2" attributes="0"/>
+                                      <Component id="jtfAfecciones" min="-2" pref="213" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jnombrecompleto" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jtfNombreCompleto" min="-2" pref="213" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="Jcodigocliente" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jtfCodigoCliente" min="-2" pref="213" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="54" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jGestiondeClientes9" min="-2" pref="215" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                  <EmptySpace pref="55" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="jGestiondeClientes9" min="-2" pref="24" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="Jcodigocliente" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="jtext1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfCodigoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jdni" alignment="0" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="jtfDni" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jnombrecompleto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtext2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jnombrecompleto" alignment="3" min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="jtfNombreCompleto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jtelefono" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtext3" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jtelefono" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jedad" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jtfTelefono" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jtfEdad" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jedad" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtext4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jafecciones" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfAfecciones" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jCactivo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                  <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jBmodificar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="jBeliminar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="jBbuscar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="jBguardar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                      <Component id="jBNuevo9" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="jbModificar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="jbEliminar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="jbBuscar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="jbGuardar" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="jbNuevo" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               </Group>
@@ -151,7 +180,7 @@
         <Component class="javax.swing.JLabel" name="jtelefono">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="1"/>
+              <Font name="Arial" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Telefono :"/>
           </Properties>
@@ -159,23 +188,23 @@
         <Component class="javax.swing.JLabel" name="jedad">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="1"/>
+              <Font name="Arial" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Edad :"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext1">
+        <Component class="javax.swing.JTextField" name="jtfDni">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext2">
+        <Component class="javax.swing.JTextField" name="jtfNombreCompleto">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext3">
+        <Component class="javax.swing.JTextField" name="jtfTelefono">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext4">
+        <Component class="javax.swing.JTextField" name="jtfEdad">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtext4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfEdadActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jBNuevo9">
+        <Component class="javax.swing.JButton" name="jbNuevo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
@@ -189,8 +218,11 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbNuevoActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jBguardar">
+        <Component class="javax.swing.JButton" name="jbGuardar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
@@ -204,8 +236,11 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbGuardarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jBmodificar">
+        <Component class="javax.swing.JButton" name="jbModificar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
@@ -219,8 +254,11 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbModificarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jBeliminar">
+        <Component class="javax.swing.JButton" name="jbEliminar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
@@ -234,8 +272,11 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEliminarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jBbuscar">
+        <Component class="javax.swing.JButton" name="jbBuscar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
@@ -249,14 +290,40 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbBuscarActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCactivo">
+        <Component class="javax.swing.JCheckBox" name="jcbActivo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Activo"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jdni">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="DNI:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtfCodigoCliente">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jafecciones">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="14" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Afecciones:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtfAfecciones">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfAfeccionesActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
