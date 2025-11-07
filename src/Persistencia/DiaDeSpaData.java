@@ -3,9 +3,11 @@ package Persistencia;
 import Modelo.DiaDeSpa;
 import Modelo.Cliente;
 import Persistencia.Conexion;
+import static Persistencia.Conexion.con;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -166,4 +168,21 @@ public class DiaDeSpaData {
         }
         return dias;
     }
+    public void bajaLogicaDiaDeSpa(int codPack) {
+    String sql = "UPDATE diadespa SET estado = 0 WHERE codPack = ?";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codPack);
+        int filas = ps.executeUpdate();
+
+        if (filas == 0) {
+            System.out.println("No se encontro el día de spa con ese codigo.");
+        }
+
+        ps.close();
+    } catch (SQLException ex) {
+        System.out.println("error al dar de baja el dia de Spa: " + ex.getMessage());
+    }
+}
 }

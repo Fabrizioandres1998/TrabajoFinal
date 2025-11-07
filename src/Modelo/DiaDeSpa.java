@@ -9,7 +9,7 @@ public class DiaDeSpa {
     private LocalDateTime fechaYHora;
     private String preferencias;
     private Cliente cliente;
-    private boolean estado;
+    private boolean estado; 
     private List<Sesion_turno> sesiones;
     private double monto;
 
@@ -35,6 +35,7 @@ public class DiaDeSpa {
         this.monto = monto;
     }
 
+    
     public int getCodPack() {
         return codPack;
     }
@@ -91,8 +92,22 @@ public class DiaDeSpa {
         this.monto = monto;
     }
 
+    
+    public void activar() {
+        this.estado = true;
+    }
+
+    
+    public void desactivar() {
+        this.estado = false;
+    }
+
     @Override
     public String toString() {
-        return "Día de Spa N° " + codPack + " - " + fechaYHora.toLocalDate();
+        String estadoStr = estado ? "Activo" : "Inactivo";
+        return "dia  de Spa N° " + codPack + " | Cliente: " 
+                + (cliente != null ? cliente.getNombreCompleto() : "Sin asignar")
+                + " | Fecha: " + (fechaYHora != null ? fechaYHora.toLocalDate() : "-")
+                + " | Estado: " + estadoStr;
     }
 }
