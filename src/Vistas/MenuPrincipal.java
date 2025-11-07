@@ -155,7 +155,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiMasajistaActionPerformed
 
     private void jmiDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDiaDeSpaActionPerformed
-        // TODO add your handling code here:
+          jdpMenuPrincipal.removeAll();
+    jdpMenuPrincipal.repaint();
+
+    GestionDiaDeSpa vistaDia = new GestionDiaDeSpa(conexion); 
+    vistaDia.setVisible(true);
+    jdpMenuPrincipal.add(vistaDia);
+    jdpMenuPrincipal.moveToFront(vistaDia);
+
     }//GEN-LAST:event_jmiDiaDeSpaActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
