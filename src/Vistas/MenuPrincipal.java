@@ -1,7 +1,11 @@
 package Vistas;
 
 import Persistencia.Conexion;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.sql.Connection;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
@@ -14,6 +18,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     public MenuPrincipal() {
         initComponents();
+          ImageIcon icon = new ImageIcon(getClass().getResource("/Vistas/imagenes/spa.jpg"));
+    Image image = icon.getImage();
+
+   
+     
+    jDesktopPane1.setBorder(BorderFactory.createEmptyBorder()); 
+    jDesktopPane1 = new javax.swing.JDesktopPane() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        }
+    };
+   
+    this.setContentPane(jDesktopPane1);
 
         conexion = new Conexion(url, usuario, password);
         Connection conex = conexion.obtenerConexion();
@@ -28,7 +47,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jdpMenuPrincipal = new javax.swing.JDesktopPane();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jGestion = new javax.swing.JMenu();
         jmiCliente = new javax.swing.JMenuItem();
@@ -47,14 +66,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jdpMenuPrincipalLayout = new javax.swing.GroupLayout(jdpMenuPrincipal);
-        jdpMenuPrincipal.setLayout(jdpMenuPrincipalLayout);
-        jdpMenuPrincipalLayout.setHorizontalGroup(
-            jdpMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
+        jDesktopPane1.setLayout(jDesktopPane1Layout);
+        jDesktopPane1Layout.setHorizontalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 508, Short.MAX_VALUE)
         );
-        jdpMenuPrincipalLayout.setVerticalGroup(
-            jdpMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDesktopPane1Layout.setVerticalGroup(
+            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 402, Short.MAX_VALUE)
         );
 
@@ -140,11 +159,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpMenuPrincipal)
+            .addComponent(jDesktopPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpMenuPrincipal)
+            .addComponent(jDesktopPane1)
         );
 
         pack();
@@ -155,13 +174,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiMasajistaActionPerformed
 
     private void jmiDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDiaDeSpaActionPerformed
-          jdpMenuPrincipal.removeAll();
-    jdpMenuPrincipal.repaint();
+          jDesktopPane1.removeAll();
+    jDesktopPane1.repaint();
 
     GestionDiaDeSpa vistaDia = new GestionDiaDeSpa(conexion); 
     vistaDia.setVisible(true);
-    jdpMenuPrincipal.add(vistaDia);
-    jdpMenuPrincipal.moveToFront(vistaDia);
+    jDesktopPane1.add(vistaDia);
+    jDesktopPane1.moveToFront(vistaDia);
 
     }//GEN-LAST:event_jmiDiaDeSpaActionPerformed
 
@@ -179,7 +198,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed
         GestionDeClientes gc = new GestionDeClientes(conexion);
-        jdpMenuPrincipal.add(gc);
+        jDesktopPane1.add(gc);
         gc.setVisible(true);
     }//GEN-LAST:event_jmiClienteActionPerformed
 
@@ -220,6 +239,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jConsultas;
+    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jGestion;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem6;
@@ -227,7 +247,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JDesktopPane jdpMenuPrincipal;
     private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiConsultorios;
     private javax.swing.JMenuItem jmiDiaDeSpa;
