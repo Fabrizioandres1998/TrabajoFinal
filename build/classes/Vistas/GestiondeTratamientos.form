@@ -25,12 +25,20 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jDesktopPane1" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jDesktopPane1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jDesktopPane1" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jDesktopPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -50,7 +58,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="jCactivo" min="-2" max="-2" attributes="0"/>
+                          <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -62,11 +70,11 @@
                           </Group>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jtext5" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="jtext2" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="jtext1" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="jtext3" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="jtext4" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="jtfCosto" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="jtfNombre" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="jtfCodigo" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="jtfDetalle" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
+                              <Component id="jtfDuracion" min="-2" pref="184" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -75,7 +83,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="jBnuevo" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace pref="34" max="32767" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="jBguardar" min="-2" pref="59" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   <Component id="jBmodificar" min="-2" pref="66" max="-2" attributes="0"/>
@@ -99,31 +107,31 @@
                   <Component id="jGestionDeTratamientos" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtext1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfCodigo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jCodigoTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtext2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jNombre" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtext3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtext4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtext5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfCosto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jCosto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jCactivo" min="-2" max="-2" attributes="0"/>
+                  <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="59" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBguardar" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
@@ -189,20 +197,26 @@
             <Property name="text" type="java.lang.String" value="Costo  :   "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext1">
+        <Component class="javax.swing.JTextField" name="jtfCodigo">
+          <Properties>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+          </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtext1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfCodigoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext2">
+        <Component class="javax.swing.JTextField" name="jtfNombre">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext3">
+        <Component class="javax.swing.JTextField" name="jtfDetalle">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext4">
+        <Component class="javax.swing.JTextField" name="jtfDuracion">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtfDuracionActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jtext5">
+        <Component class="javax.swing.JTextField" name="jtfCosto">
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCactivo">
+        <Component class="javax.swing.JCheckBox" name="jcbActivo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
