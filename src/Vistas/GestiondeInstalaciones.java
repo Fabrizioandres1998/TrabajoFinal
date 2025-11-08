@@ -33,16 +33,16 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jNombre = new javax.swing.JLabel();
         jTipo = new javax.swing.JLabel();
         jCapacidad = new javax.swing.JLabel();
-        jtext1 = new javax.swing.JTextField();
-        jtext2 = new javax.swing.JTextField();
-        jtext3 = new javax.swing.JTextField();
-        jcbSauna = new javax.swing.JComboBox<>();
-        jCactivo = new javax.swing.JCheckBox();
-        jBnuevo = new javax.swing.JButton();
-        jBguardar = new javax.swing.JButton();
-        jBmodificar = new javax.swing.JButton();
-        jBeliminar = new javax.swing.JButton();
-        jBbuscar = new javax.swing.JButton();
+        jtfCodigoInstalacion = new javax.swing.JTextField();
+        jtfNombre = new javax.swing.JTextField();
+        jtfCapacidad = new javax.swing.JTextField();
+        jcbActivo = new javax.swing.JCheckBox();
+        jbNuevo = new javax.swing.JButton();
+        jbGuardar = new javax.swing.JButton();
+        jbModificar = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
+        jbBuscar = new javax.swing.JButton();
+        jtfTipo = new javax.swing.JTextField();
 
         jDesktopPane1.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -62,52 +62,44 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jCapacidad.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jCapacidad.setText("Capacidad : ");
 
-        jcbSauna.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jcbSauna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sauna", "Piscina", "Ducha", "Gimnasio" }));
-        jcbSauna.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbSaunaActionPerformed(evt);
-            }
-        });
+        jcbActivo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jcbActivo.setText("Activo");
 
-        jCactivo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jCactivo.setText("Activo");
+        jbNuevo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jbNuevo.setText("Nuevo");
+        jbNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
 
-        jBnuevo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jBnuevo.setText("Nuevo");
-        jBnuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
+        jbGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jbGuardar.setText("Guardar");
+        jbGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
 
-        jBguardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jBguardar.setText("Guardar");
-        jBguardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
+        jbModificar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jbModificar.setText("Modificar");
+        jbModificar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
 
-        jBmodificar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jBmodificar.setText("Modificar");
-        jBmodificar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
+        jbEliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jbEliminar.setText("Eliminar");
+        jbEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
 
-        jBeliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jBeliminar.setText("Eliminar");
-        jBeliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
-
-        jBbuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jBbuscar.setText("Buscar");
-        jBbuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
+        jbBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
 
         jDesktopPane1.setLayer(jGestioDeInstalacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCodigoInstalacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCapacidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtext1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtext2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtext3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jcbSauna, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jCactivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jBnuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jBguardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jBmodificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jBeliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jBbuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtfCodigoInstalacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtfNombre, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtfCapacidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jcbActivo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtfTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -124,19 +116,19 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
                             .addComponent(jCapacidad))
                         .addGap(48, 48, 48)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCactivo)
+                            .addComponent(jcbActivo)
                             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jtext2)
-                                .addComponent(jtext1)
-                                .addComponent(jcbSauna, javax.swing.GroupLayout.Alignment.TRAILING, 0, 180, Short.MAX_VALUE)
-                                .addComponent(jtext3, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addComponent(jtfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                .addComponent(jtfCodigoInstalacion)
+                                .addComponent(jtfCapacidad, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jtfTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jBnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(jBguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
-                        .addComponent(jBmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(119, 119, 119)))
                 .addContainerGap(116, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
@@ -145,9 +137,9 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
                 .addGap(144, 144, 144))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBeliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
-                .addComponent(jBbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -158,28 +150,28 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCodigoInstalacion)
-                    .addComponent(jtext1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfCodigoInstalacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jNombre)
-                    .addComponent(jtext2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                    .addComponent(jtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTipo)
-                    .addComponent(jcbSauna, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCapacidad)
-                    .addComponent(jtext3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jCactivo)
+                .addComponent(jcbActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBnuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBmodificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBeliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(81, 81, 81))
         );
 
@@ -199,27 +191,23 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jcbSaunaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSaunaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbSaunaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBbuscar;
-    private javax.swing.JButton jBeliminar;
-    private javax.swing.JButton jBguardar;
-    private javax.swing.JButton jBmodificar;
-    private javax.swing.JButton jBnuevo;
-    private javax.swing.JCheckBox jCactivo;
     private javax.swing.JLabel jCapacidad;
     private javax.swing.JLabel jCodigoInstalacion;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jGestioDeInstalacion;
     private javax.swing.JLabel jNombre;
     private javax.swing.JLabel jTipo;
-    private javax.swing.JComboBox<String> jcbSauna;
-    private javax.swing.JTextField jtext1;
-    private javax.swing.JTextField jtext2;
-    private javax.swing.JTextField jtext3;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbModificar;
+    private javax.swing.JButton jbNuevo;
+    private javax.swing.JCheckBox jcbActivo;
+    private javax.swing.JTextField jtfCapacidad;
+    private javax.swing.JTextField jtfCodigoInstalacion;
+    private javax.swing.JTextField jtfNombre;
+    private javax.swing.JTextField jtfTipo;
     // End of variables declaration//GEN-END:variables
 }

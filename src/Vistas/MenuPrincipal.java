@@ -95,6 +95,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jGestion.add(jmiDiaDeSpa);
 
         jmiTurnos.setText("Turnos");
+        jmiTurnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTurnosActionPerformed(evt);
+            }
+        });
         jGestion.add(jmiTurnos);
 
         jmiInstalaciones.setText("Instalaciones");
@@ -151,11 +156,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmiMasajistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMasajistaActionPerformed
-        // TODO add your handling code here:
+        GestiondeMasajistas gdm = new GestiondeMasajistas(conexion);
+        jdpMenuPrincipal.add(gdm);
+        gdm.setVisible(true);
     }//GEN-LAST:event_jmiMasajistaActionPerformed
 
     private void jmiDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDiaDeSpaActionPerformed
-        // TODO add your handling code here:
+        GestionDiaDeSpa gds = new GestionDiaDeSpa(conexion);
+        jdpMenuPrincipal.add(gds);
+        gds.setVisible(true);
     }//GEN-LAST:event_jmiDiaDeSpaActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -175,6 +184,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jdpMenuPrincipal.add(gc);
         gc.setVisible(true);
     }//GEN-LAST:event_jmiClienteActionPerformed
+
+    private void jmiTurnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTurnosActionPerformed
+        GestionTurnos gt = new GestionTurnos(conexion);
+        jdpMenuPrincipal.add(gt);
+        gt.setVisible(true);
+    }//GEN-LAST:event_jmiTurnosActionPerformed
 
     /**
      * @param args the command line arguments

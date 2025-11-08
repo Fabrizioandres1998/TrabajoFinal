@@ -21,7 +21,7 @@ public class MasajistaData {
 
     // guarda un nuevo masajista
     public void guardarMasajista(Masajista m) {
-        String query = "INSERT INTO masajista (matricula, nombre_y_apellido, telefono, especialidad, estado) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO masajista (matricula, nombre_apellido, telefono, especialidad, estado) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = conex.prepareStatement(query);
             ps.setString(1, m.getMatricula());
@@ -47,7 +47,7 @@ public class MasajistaData {
             if (rs.next()) {
                 m = new Masajista();
                 m.setMatricula(rs.getString("matricula"));
-                m.setNombreYApellido(rs.getString("nombre_y_apellido"));
+                m.setNombreYApellido(rs.getString("nombre_apellido"));
                 m.setTelefono(rs.getString("telefono"));
                 m.setEspecialidad(rs.getString("especialidad"));
                 m.setEstado(rs.getBoolean("estado"));
@@ -61,7 +61,7 @@ public class MasajistaData {
 
     // actualiza los datos de un masajista
     public void actualizarMasajista(Masajista m) {
-        String query = "UPDATE masajista SET nombre_y_apellido = ?, telefono = ?, especialidad = ?, estado = ? WHERE matricula = ?";
+        String query = "UPDATE masajista SET nombre_apellido = ?, telefono = ?, especialidad = ?, estado = ? WHERE matricula = ?";
         try {
             PreparedStatement ps = conex.prepareStatement(query);
             ps.setString(1, m.getNombreYApellido());
@@ -112,7 +112,7 @@ public class MasajistaData {
             while (rs.next()) {
                 Masajista m = new Masajista();
                 m.setMatricula(rs.getString("matricula"));
-                m.setNombreYApellido(rs.getString("nombre_y_apellido"));
+                m.setNombreYApellido(rs.getString("nombre_apellido"));
                 m.setTelefono(rs.getString("telefono"));
                 m.setEspecialidad(rs.getString("especialidad"));
                 m.setEstado(rs.getBoolean("estado"));
@@ -123,5 +123,17 @@ public class MasajistaData {
             System.out.println("error al listar masajistas activos: " + e.getMessage());
         }
         return lista;
+    }
+
+    public void bajaFisicaMasajista(String matricula) {
+        String query = "DELETE FROM masajista WHERE matricula = ?";
+        try {
+            PreparedStatement ps = conex.prepareStatement(query);
+            ps.setString(1, matricula);
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            System.out.println("error al eliminar masajista: " + e.getMessage());
+        }
     }
 }

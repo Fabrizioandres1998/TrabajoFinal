@@ -8,7 +8,6 @@ public class Producto {
     private double precio;
     private boolean estado;
 
-    // Constructor
     public Producto(int codProd, String nombre, String tipo, double precio, boolean estado) {
         this.codProd = codProd;
         this.nombre = nombre;
@@ -20,7 +19,6 @@ public class Producto {
     public Producto() {
     }
 
-    // Getters y Setters
     public int getCodProd() {
         return codProd;
     }
@@ -61,7 +59,6 @@ public class Producto {
         this.estado = estado;
     }
 
-    // Método para mostrar información del producto
     @Override
     public String toString() {
         return "Producto{"

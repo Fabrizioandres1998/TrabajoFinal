@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Tratamiento {
 
@@ -91,7 +92,60 @@ public class Tratamiento {
     }
 
     @Override
-    public String toString() {
-        return codTratam + " - " + nombre + " (" + duracion + " min)";
+    public int hashCode() {
+        int hash = 3;
+        hash = 41 * hash + this.codTratam;
+        hash = 41 * hash + Objects.hashCode(this.nombre);
+        hash = 41 * hash + Objects.hashCode(this.tipo);
+        hash = 41 * hash + Objects.hashCode(this.detalle);
+        hash = 41 * hash + Objects.hashCode(this.productos);
+        hash = 41 * hash + this.duracion;
+        hash = 41 * hash + (int) (Double.doubleToLongBits(this.costo) ^ (Double.doubleToLongBits(this.costo) >>> 32));
+        hash = 41 * hash + (this.activo ? 1 : 0);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Tratamiento other = (Tratamiento) obj;
+        if (this.codTratam != other.codTratam) {
+            return false;
+        }
+        if (this.duracion != other.duracion) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.costo) != Double.doubleToLongBits(other.costo)) {
+            return false;
+        }
+        if (this.activo != other.activo) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipo, other.tipo)) {
+            return false;
+        }
+        if (!Objects.equals(this.detalle, other.detalle)) {
+            return false;
+        }
+        return Objects.equals(this.productos, other.productos);
+    }
+
+
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 }

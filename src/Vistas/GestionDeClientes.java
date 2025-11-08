@@ -41,6 +41,12 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
         jafecciones = new javax.swing.JLabel();
         jtfAfecciones = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setAutoscrolls(true);
+
         jDesktopPane3.setBackground(new java.awt.Color(204, 204, 255));
 
         jGestiondeClientes9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N

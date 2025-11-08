@@ -78,4 +78,9 @@ public class Cliente {
         this.estado = estado;
     }
 
+    @Override
+    public String toString() {
+        return nombreCompleto; // solo el nombre completo
+    }
+
 }

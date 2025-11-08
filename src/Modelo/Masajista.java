@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.util.Objects;
+
 public class Masajista {
 
     private String matricula;
@@ -67,7 +69,46 @@ public class Masajista {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.matricula);
+        hash = 29 * hash + Objects.hashCode(this.nombreYApellido);
+        hash = 29 * hash + Objects.hashCode(this.telefono);
+        hash = 29 * hash + Objects.hashCode(this.especialidad);
+        hash = 29 * hash + (this.estado ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Masajista other = (Masajista) obj;
+        if (this.estado != other.estado) {
+            return false;
+        }
+        if (!Objects.equals(this.matricula, other.matricula)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombreYApellido, other.nombreYApellido)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefono, other.telefono)) {
+            return false;
+        }
+        return Objects.equals(this.especialidad, other.especialidad);
+    }
+
+    
+    @Override
     public String toString() {
-        return matricula + " - " + nombreYApellido;
+        return nombreYApellido;
     }
 }

@@ -56,7 +56,7 @@ public class TratamientoData {
 
     // actualiza los datos de un tratamiento y su relación con productos
     public void actualizarTratamiento(Tratamiento t) {
-        String query = "UPDATE tratamiento SET nombre = ?, tipo = ?, detalle = ?, duracion = ?, costo = ?, activo = ? WHERE cod_tratam = ?";
+        String query = "UPDATE tratamiento SET nombre = ?, tipo = ?, detalle = ?, duracion = ?, costo = ?, activo = ? WHERE codTratam = ?";
         try {
             PreparedStatement ps = conex.prepareStatement(query);
             ps.setString(1, t.getNombre());
@@ -94,21 +94,26 @@ public class TratamientoData {
     // busca un tratamiento por codigo (productos no incluidos)
     public Tratamiento buscarTratamiento(int codTratam) {
         Tratamiento t = null;
-        String query = "SELECT * FROM tratamiento WHERE cod_tratam = ?";
+        String query = "SELECT * FROM tratamiento WHERE codTratam = ?";
         try {
             PreparedStatement ps = conex.prepareStatement(query);
             ps.setInt(1, codTratam);
             ResultSet rs = ps.executeQuery();
+
             if (rs.next()) {
                 t = new Tratamiento();
-                t.setCodTratam(rs.getInt("cod_tratam"));
+                t.setCodTratam(rs.getInt("codTratam"));
                 t.setNombre(rs.getString("nombre"));
                 t.setTipo(rs.getString("tipo"));
                 t.setDetalle(rs.getString("detalle"));
                 t.setDuracion(rs.getInt("duracion"));
                 t.setCosto(rs.getDouble("costo"));
                 t.setActivo(rs.getBoolean("activo"));
+
+                // 🔥 Cargar los productos asociados
+                t.setProductos(listarProductosDeTratamiento(t));
             }
+
             ps.close();
         } catch (Exception e) {
             System.out.println("Error al buscar tratamiento: " + e.getMessage());
@@ -118,7 +123,7 @@ public class TratamientoData {
 
     // baja logica del tratamiento
     public void bajaLogicaTratamiento(Tratamiento t) {
-        String query = "UPDATE tratamiento SET activo = false WHERE cod_tratam = ?";
+        String query = "UPDATE tratamiento SET activo = false WHERE codTratam = ?";
         try {
             PreparedStatement ps = conex.prepareStatement(query);
             ps.setInt(1, t.getCodTratam());
@@ -131,7 +136,7 @@ public class TratamientoData {
 
     // alta logica del tratamiento
     public void altaLogicaTratamiento(Tratamiento t) {
-        String query = "UPDATE tratamiento SET activo = true WHERE cod_tratam = ?";
+        String query = "UPDATE tratamiento SET activo = true WHERE codTratam = ?";
         try {
             PreparedStatement ps = conex.prepareStatement(query);
             ps.setInt(1, t.getCodTratam());
@@ -151,7 +156,7 @@ public class TratamientoData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Tratamiento t = new Tratamiento();
-                t.setCodTratam(rs.getInt("cod_tratam"));
+                t.setCodTratam(rs.getInt("codTratam"));
                 t.setNombre(rs.getString("nombre"));
                 t.setTipo(rs.getString("tipo"));
                 t.setDetalle(rs.getString("detalle"));
@@ -165,5 +170,33 @@ public class TratamientoData {
             System.out.println("Error al listar tratamientos activos: " + e.getMessage());
         }
         return lista;
+    }
+
+    public List<Producto> listarProductosDeTratamiento(Tratamiento t) {
+        List<Producto> productos = new ArrayList<>();
+        String sql = "SELECT p.codProd, p.nombre, p.tipo, p.precio, p.estado "
+                + "FROM producto p "
+                + "INNER JOIN tratamiento_producto tp ON p.codProd = tp.codProd "
+                + "WHERE tp.codTratam = ? AND p.estado = true";
+
+        try (PreparedStatement ps = conex.prepareStatement(sql)) {
+            ps.setInt(1, t.getCodTratam());
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setCodProd(rs.getInt("codProd"));
+                p.setNombre(rs.getString("nombre"));
+                p.setTipo(rs.getString("tipo"));
+                p.setPrecio(rs.getDouble("precio"));
+                p.setEstado(rs.getBoolean("estado"));
+                productos.add(p);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return productos;
     }
 }

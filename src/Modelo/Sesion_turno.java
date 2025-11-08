@@ -2,6 +2,7 @@ package Modelo;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 public class Sesion_turno {
 
@@ -112,4 +113,27 @@ public class Sesion_turno {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Sesion_turno that = (Sesion_turno) o;
+        return this.codSesion == that.codSesion;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(codSesion);
+    }
+
+    @Override
+    public String toString() {
+        return "Sesion N°: " + codSesion;
+    }
+
 }
