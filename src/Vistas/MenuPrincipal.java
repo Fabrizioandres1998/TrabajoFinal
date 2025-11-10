@@ -47,7 +47,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jdpMenuPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jGestion = new javax.swing.JMenu();
         jmiCliente = new javax.swing.JMenuItem();
@@ -66,14 +66,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jdpMenuPrincipalLayout = new javax.swing.GroupLayout(jdpMenuPrincipal);
+        jdpMenuPrincipal.setLayout(jdpMenuPrincipalLayout);
+        jdpMenuPrincipalLayout.setHorizontalGroup(
+            jdpMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 508, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jdpMenuPrincipalLayout.setVerticalGroup(
+            jdpMenuPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 402, Short.MAX_VALUE)
         );
 
@@ -122,6 +122,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jGestion.add(jmiTurnos);
 
         jmiInstalaciones.setText("Instalaciones");
+        jmiInstalaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiInstalacionesActionPerformed(evt);
+            }
+        });
         jGestion.add(jmiInstalaciones);
 
         jmiConsultorios.setText("Consultorios");
@@ -164,11 +169,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jdpMenuPrincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jdpMenuPrincipal)
         );
 
         pack();
@@ -215,6 +220,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         gt.setVisible(true);
     }//GEN-LAST:event_jmiTurnosActionPerformed
 
+    private void jmiInstalacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInstalacionesActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jmiInstalacionesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,7 +262,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jConsultas;
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jGestion;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem6;
@@ -260,6 +269,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JDesktopPane jdpMenuPrincipal;
     private javax.swing.JMenuItem jmiCliente;
     private javax.swing.JMenuItem jmiConsultorios;
     private javax.swing.JMenuItem jmiDiaDeSpa;

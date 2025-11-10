@@ -5,17 +5,25 @@
  */
 package Vistas;
 
+import Modelo.Consultorio;
+import Persistencia.Conexion;
+import Persistencia.ConsultorioData;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author vanne
  */
 public class GestionConsultorios extends javax.swing.JInternalFrame {
-
+    
+    private Conexion conexion;
+    private Consultorio consultorioActual;
     /**
      * Creates new form GestionConsultorios
      */
     public GestionConsultorios() {
         initComponents();
+        this.conexion = conexion;
     }
 
     /**
@@ -68,22 +76,47 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
         jbNuevo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbNuevo.setText("Nuevo");
         jbNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbGuardar.setText("Guardar");
         jbGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbModificar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbModificar.setText("Modificar");
         jbModificar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jGestionDeConsultorio, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCodigoConsultorio, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -186,6 +219,143 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
     private void jcbAptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAptoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbAptoActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        // TODO add your handling code here:
+        jtfCodigoConsultorio.setText("");
+        jtfUsos.setText("");
+        jtfCapacidad.setText("");
+        jcbApto.setSelected(false);
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        // TODO add your handling code here:
+        
+
+        try {
+            String cod = jtfCodigoConsultorio.getText();
+            String usos = jtfUsos.getText();
+            String capacidad = jtfCapacidad.getText();
+            boolean apto = jcbApto.isSelected();
+            
+
+            if (cod.isEmpty() || usos.isEmpty() || capacidad.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            
+
+            
+
+            Consultorio c = new Consultorio(usos, capacidad, apto);
+            ConsultorioData cd = new ConsultorioData(conexion);
+            cd.guardarConsultorio(c);
+            JOptionPane.showMessageDialog(this, "Masajista guardado correctamente");
+
+        jtfCodigoConsultorio.setText("");
+        jtfUsos.setText("");
+        jtfCapacidad.setText("");
+        jcbApto.setSelected(false);    
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (consultorioActual == null) {
+                JOptionPane.showMessageDialog(this, "Primero debes buscar un consultorio", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String codigo = jtfCodigoConsultorio.getText().trim();
+            String usos = jtfUsos.getText().trim();
+            String capacidad = jtfCapacidad.getText().trim();
+            boolean estado = jcbApto.isSelected();
+
+            if (codigo.isEmpty() || usos.isEmpty() || capacidad.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            
+
+            consultorioActual.setUsos(usos);
+            consultorioActual.setEquipamiento(capacidad);
+            consultorioActual.setApto(estado);
+
+            ConsultorioData cd = new ConsultorioData(conexion);
+            cd.actualizarConsultorio(consultorioActual);
+
+            JOptionPane.showMessageDialog(this, "Masajista actualizado correctamente");
+
+        jtfCodigoConsultorio.setText("");
+        jtfUsos.setText("");
+        jtfCapacidad.setText("");
+        jcbApto.setSelected(false);    
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbModificarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (consultorioActual == null) {
+                JOptionPane.showMessageDialog(this, "Debes buscar un consultorio antes de eliminarlo", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                    "Seguro que deseas eliminar este consultorio?",
+                    "Confirmar eliminacion",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                ConsultorioData cd = new ConsultorioData(conexion);
+                cd.eliminarConsultorio(consultorioActual.getNroConsultorio());
+                JOptionPane.showMessageDialog(this, "Masajista eliminado correctamente");
+
+                jtfCodigoConsultorio.setText("");
+                jtfUsos.setText("");
+                jtfCapacidad.setText("");
+                jcbApto.setSelected(false);
+                
+                consultorioActual = null;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al eliminar el masajista: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int nro = Integer.parseInt(jtfCodigoConsultorio.getText().trim());
+
+            
+
+            ConsultorioData cd = new ConsultorioData(conexion);
+            Consultorio c = cd.buscarConsultorio(nro);
+
+            if (c != null) {
+                consultorioActual = c;
+                jtfUsos.setText(c.getUsos());
+                jtfCapacidad.setText(c.getEquipamiento());
+                jcbApto.setSelected(c.isApto());
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún consultorio", "No encontrado", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar el consultorio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
