@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
-    
+
     private Conexion conexion;
 
     String url = "jdbc:mariadb://localhost:3306/spayrelax";
@@ -18,21 +18,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     public MenuPrincipal() {
         initComponents();
-          ImageIcon icon = new ImageIcon(getClass().getResource("/Vistas/imagenes/spa.jpg"));
-    Image image = icon.getImage();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/Vistas/imagenes/spa.jpg"));
+        Image image = icon.getImage();
 
-   
-     
-    jDesktopPane1.setBorder(BorderFactory.createEmptyBorder()); 
-    jDesktopPane1 = new javax.swing.JDesktopPane() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-        }
-    };
-   
-    this.setContentPane(jDesktopPane1);
+        jDesktopPane1.setBorder(BorderFactory.createEmptyBorder());
+        jDesktopPane1 = new javax.swing.JDesktopPane() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+        this.setContentPane(jDesktopPane1);
 
         conexion = new Conexion(url, usuario, password);
         Connection conex = conexion.obtenerConexion();
@@ -176,25 +174,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jmiMasajistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMasajistaActionPerformed
         GestiondeMasajistas gdm = new GestiondeMasajistas(conexion);
-        jdpMenuPrincipal.add(gdm);
+        jDesktopPane1.add(gdm);
         gdm.setVisible(true);
     }//GEN-LAST:event_jmiMasajistaActionPerformed
 
     private void jmiDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiDiaDeSpaActionPerformed
-<<<<<<< HEAD
-        GestionDiaDeSpa gds = new GestionDiaDeSpa(conexion);
-        jdpMenuPrincipal.add(gds);
-        gds.setVisible(true);
-=======
-          jDesktopPane1.removeAll();
-    jDesktopPane1.repaint();
+        // Limpiamos el JDesktopPane
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
 
-    GestionDiaDeSpa vistaDia = new GestionDiaDeSpa(conexion); 
-    vistaDia.setVisible(true);
-    jDesktopPane1.add(vistaDia);
-    jDesktopPane1.moveToFront(vistaDia);
+        // Creamos la ventana interna de GestionDiaDeSpa
+        GestionDiaDeSpa vistaDia = new GestionDiaDeSpa(conexion);
+        vistaDia.setVisible(true);
 
->>>>>>> 6122fccd7ef499ceb3057c4e2588a6ac13514bdd
+        // La agregamos al JDesktopPane y la traemos al frente
+        jDesktopPane1.add(vistaDia);
+        jDesktopPane1.moveToFront(vistaDia);
     }//GEN-LAST:event_jmiDiaDeSpaActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -217,7 +212,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void jmiTurnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTurnosActionPerformed
         GestionTurnos gt = new GestionTurnos(conexion);
-        jdpMenuPrincipal.add(gt);
+        jDesktopPane1.add(gt);
         gt.setVisible(true);
     }//GEN-LAST:event_jmiTurnosActionPerformed
 
