@@ -233,7 +233,7 @@ public class GestiondeTratamientos extends javax.swing.JInternalFrame {
                 return;
             }
 
-            // validar números
+            // validacion de numeros 
             String regexEntero = "^[0-9]+$";
             String regexDecimal = "^[0-9]+(\\.[0-9]+)?$";
 
@@ -256,8 +256,7 @@ public class GestiondeTratamientos extends javax.swing.JInternalFrame {
             t.setDuracion(duracion);
             t.setCosto(costo);
             t.setActivo(activo);
-            t.setProductos(new ArrayList<>()); // importante: evitar NPE en TratamientoData
-
+            t.setProductos(new ArrayList<>());     
             TratamientoData td = new TratamientoData(conexion);
             td.guardarTratamiento(t);
 
@@ -352,7 +351,7 @@ public class GestiondeTratamientos extends javax.swing.JInternalFrame {
             tratamientoActual.setCosto(costo);
             tratamientoActual.setActivo(activo);
             if (tratamientoActual.getProductos() == null) {
-                tratamientoActual.setProductos(new ArrayList<>()); // mantener consistente
+                tratamientoActual.setProductos(new ArrayList<>());  
             }
 
             TratamientoData td = new TratamientoData(conexion);
@@ -371,7 +370,7 @@ public class GestiondeTratamientos extends javax.swing.JInternalFrame {
             tratamientoActual = null;
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error al modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error al intentar modificar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }                                           
 
