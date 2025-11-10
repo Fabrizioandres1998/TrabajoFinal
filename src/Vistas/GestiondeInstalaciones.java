@@ -5,19 +5,29 @@
  */
 package Vistas;
 
+import Modelo.Instalacion;
+import Persistencia.InstalacionData;
+import javax.swing.JOptionPane;
+import Persistencia.Conexion;
 /**
  *
  * @author vanne
  */
 public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
-
+    
+    private Conexion conexion;
+    private Instalacion instalacionActual;
+    private InstalacionData instalacionData;
     /**
      * Creates new form GestiondeInstalaciones
      */
     public GestiondeInstalaciones() {
         initComponents();
+        this.conexion = conexion;
+        this.instalacionData = new InstalacionData(conexion);
     }
 
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +52,7 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jbModificar = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
-        jtfTipo = new javax.swing.JTextField();
+        jtfPrecio = new javax.swing.JTextField();
 
         jDesktopPane1.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -57,7 +67,7 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jNombre.setText("Nombre :  ");
 
         jTipo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jTipo.setText("Tipo : ");
+        jTipo.setText("Precio:");
 
         jCapacidad.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jCapacidad.setText("Capacidad : ");
@@ -68,22 +78,47 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jbNuevo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbNuevo.setText("Nuevo");
         jbNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbGuardar.setText("Guardar");
         jbGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbModificar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbModificar.setText("Modificar");
         jbModificar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
+        jbModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModificarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbEliminar.setText("Eliminar");
         jbEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jDesktopPane1.setLayer(jGestioDeInstalacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCodigoInstalacion, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -99,7 +134,7 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jbModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtfTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtfPrecio, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -121,7 +156,7 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
                                 .addComponent(jtfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                                 .addComponent(jtfCodigoInstalacion)
                                 .addComponent(jtfCapacidad, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jtfTipo, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))))
+                                .addComponent(jtfPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,7 +193,7 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTipo)
-                    .addComponent(jtfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCapacidad)
@@ -191,6 +226,139 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        // TODO add your handling code here:
+        jtfCodigoInstalacion.setText("");
+        jtfNombre.setText("");
+        jtfPrecio.setText("");
+        jtfCapacidad.setText("");
+        jcbActivo.setSelected(false);
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        // TODO add your handling code here:
+        try {
+            String nombre = jtfNombre.getText().trim();
+            String capacidad = jtfCapacidad.getText().trim();
+            double precio = Double.parseDouble(jtfPrecio.getText().trim());
+            boolean estado = jcbActivo.isSelected();
+
+            if (nombre.isEmpty() || capacidad.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            
+            Instalacion i = new Instalacion(nombre, capacidad, precio, estado);
+            InstalacionData id = new InstalacionData(conexion);
+            id.guardarInstalacion(i);
+            
+            JOptionPane.showMessageDialog(this, "Instalación guardada con Cod: " + i.getCodInstal());
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
+        // TODO add your handling code here:
+        
+            String codigo = jtfCodigoInstalacion.getText();
+            String nombre = jtfNombre.getText().trim();
+            String capacidad = jtfCapacidad.getText().trim();
+            Double precio = Double.valueOf(jtfPrecio.getText().trim());
+            boolean estado = jcbActivo.isSelected();
+        try {
+            if (instalacionActual == null) {
+                JOptionPane.showMessageDialog(this, "Primero debes buscar un masajista", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            instalacionActual.setNombre(jtfNombre.getText().trim());
+            instalacionActual.setdetalle_de_uso(jtfCapacidad.getText().trim());
+            instalacionActual.setPrecio30m(Double.parseDouble(jtfPrecio.getText().trim()));
+            instalacionActual.setEstado(jcbActivo.isSelected());
+
+            if (codigo.isEmpty() || nombre.isEmpty() || capacidad.isEmpty() || precio == null ) {
+                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Instalacion i = new Instalacion(nombre, capacidad, precio, estado);
+            InstalacionData id = new InstalacionData(conexion);
+            id.actualizarInstalacion(i);
+
+            JOptionPane.showMessageDialog(this, "Instalacion actualizada correctamente");
+
+           jtfCodigoInstalacion.setText("");
+            jtfNombre.setText("");
+            jtfPrecio.setText("");
+            jtfCapacidad.setText("");
+            jcbActivo.setSelected(false);
+
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbModificarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (instalacionActual == null) {
+                JOptionPane.showMessageDialog(this, "Debes buscar un masajista antes de eliminarlo", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                    "Seguro que deseas eliminar esta instalacion?",
+                    "Confirmar eliminacion",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                InstalacionData id = new InstalacionData(conexion);
+                id.eliminarInstalacion(instalacionActual.getCodInstal());
+                JOptionPane.showMessageDialog(this, "Instalacion eliminada correctamente");
+
+                jtfCodigoInstalacion.setText("");
+                jtfNombre.setText("");
+                jtfPrecio.setText("");
+                jtfCapacidad.setText("");
+                jcbActivo.setSelected(false);
+
+                instalacionActual = null;
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error al eliminar la instalacion: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int cod = Integer.parseInt(jtfCodigoInstalacion.getText().trim());
+
+            
+
+            InstalacionData id = new InstalacionData(conexion);
+            
+            Instalacion i = id.buscarInstalacion(cod);
+
+            if (i != null) {
+                instalacionActual = i;
+                jtfNombre.setText(i.getNombre());
+                jtfCapacidad.setText(i.getdetalle_de_uso());
+                jcbActivo.setSelected(i.isEstado());
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ninguna instalacion", "No encontrado", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un código de instalación válido.");
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCapacidad;
@@ -208,6 +376,6 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtfCapacidad;
     private javax.swing.JTextField jtfCodigoInstalacion;
     private javax.swing.JTextField jtfNombre;
-    private javax.swing.JTextField jtfTipo;
+    private javax.swing.JTextField jtfPrecio;
     // End of variables declaration//GEN-END:variables
 }

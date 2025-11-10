@@ -192,6 +192,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbNuevoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbGuardar">
           <Properties>
@@ -207,6 +210,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbGuardarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbModificar">
           <Properties>
@@ -222,6 +228,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbModificarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbEliminar">
           <Properties>
@@ -237,6 +246,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEliminarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbBuscar">
           <Properties>
@@ -252,6 +264,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbBuscarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
