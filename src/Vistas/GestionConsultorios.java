@@ -15,9 +15,10 @@ import javax.swing.JOptionPane;
  * @author vanne
  */
 public class GestionConsultorios extends javax.swing.JInternalFrame {
-    
+
     private Conexion conexion;
     private Consultorio consultorioActual;
+
     /**
      * Creates new form GestionConsultorios
      */
@@ -229,34 +230,26 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
-        
-
         try {
             String cod = jtfCodigoConsultorio.getText();
             String usos = jtfUsos.getText();
             String capacidad = jtfCapacidad.getText();
             boolean apto = jcbApto.isSelected();
-            
 
             if (cod.isEmpty() || usos.isEmpty() || capacidad.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            
-
-            
-
             Consultorio c = new Consultorio(usos, capacidad, apto);
             ConsultorioData cd = new ConsultorioData(conexion);
             cd.guardarConsultorio(c);
             JOptionPane.showMessageDialog(this, "Masajista guardado correctamente");
 
-        jtfCodigoConsultorio.setText("");
-        jtfUsos.setText("");
-        jtfCapacidad.setText("");
-        jcbApto.setSelected(false);    
+            jtfCodigoConsultorio.setText("");
+            jtfUsos.setText("");
+            jtfCapacidad.setText("");
+            jcbApto.setSelected(false);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -264,7 +257,6 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        // TODO add your handling code here:
         try {
             if (consultorioActual == null) {
                 JOptionPane.showMessageDialog(this, "Primero debes buscar un consultorio", "Error", JOptionPane.ERROR_MESSAGE);
@@ -281,8 +273,6 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
                 return;
             }
 
-            
-
             consultorioActual.setUsos(usos);
             consultorioActual.setEquipamiento(capacidad);
             consultorioActual.setApto(estado);
@@ -292,10 +282,10 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
 
             JOptionPane.showMessageDialog(this, "Masajista actualizado correctamente");
 
-        jtfCodigoConsultorio.setText("");
-        jtfUsos.setText("");
-        jtfCapacidad.setText("");
-        jcbApto.setSelected(false);    
+            jtfCodigoConsultorio.setText("");
+            jtfUsos.setText("");
+            jtfCapacidad.setText("");
+            jcbApto.setSelected(false);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -303,7 +293,6 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbModificarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        // TODO add your handling code here:
         try {
             if (consultorioActual == null) {
                 JOptionPane.showMessageDialog(this, "Debes buscar un consultorio antes de eliminarlo", "Error", JOptionPane.ERROR_MESSAGE);
@@ -324,7 +313,7 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
                 jtfUsos.setText("");
                 jtfCapacidad.setText("");
                 jcbApto.setSelected(false);
-                
+
                 consultorioActual = null;
             }
 
@@ -334,11 +323,8 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
         try {
             int nro = Integer.parseInt(jtfCodigoConsultorio.getText().trim());
-
-            
 
             ConsultorioData cd = new ConsultorioData(conexion);
             Consultorio c = cd.buscarConsultorio(nro);
