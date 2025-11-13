@@ -141,11 +141,9 @@ public class Tratamiento {
         return Objects.equals(this.productos, other.productos);
     }
 
-
-
     @Override
     public String toString() {
-        return nombre;
+        return getCodTratam()+ " - " + getNombre();
     }
 
 }

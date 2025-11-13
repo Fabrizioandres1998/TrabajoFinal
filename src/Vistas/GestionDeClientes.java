@@ -14,6 +14,60 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
     public GestionDeClientes(Conexion conexion) {
         initComponents();
         this.conexion = conexion;
+        cargarClientesActivos();
+
+        jcbClientesActivos.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarClienteSeleccionado();
+            }
+        });
+    }
+
+    private void cargarClienteSeleccionado() {
+        try {
+            if (jcbClientesActivos.getSelectedItem() == null) {
+                return;
+            }
+
+            String seleccionado = jcbClientesActivos.getSelectedItem().toString();
+            String[] partes = seleccionado.split(" - ");
+            int codigoCliente = Integer.parseInt(partes[0].trim());
+
+            ClienteData cd = new ClienteData(conexion);
+            Cliente c = cd.buscarCliente(codigoCliente);
+            if (c != null) {
+                clienteActual = c;
+                jtfCodigoCliente.setText(String.valueOf(c.getCodCli()));
+                jtfDni.setText(String.valueOf(c.getDni()));
+                jtfNombreCompleto.setText(c.getNombreCompleto());
+                jtfTelefono.setText(String.valueOf(c.getTelefono()));
+                jtfEdad.setText(String.valueOf(c.getEdad()));
+                jtfAfecciones.setText(c.getAfecciones());
+                jcbActivo.setSelected(c.getEstado());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar cliente seleccionado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void cargarClientesActivos() {
+        try {
+            ClienteData cd = new ClienteData(conexion);
+            // Obtener la lista de clientes activos
+            java.util.List<Cliente> clientesActivos = cd.listarClientesActivos();
+
+            // Limpiar el combobox antes de agregar los items
+            jcbClientesActivos.removeAllItems();
+
+            // Agregar los nombres de los clientes activos
+            for (Cliente c : clientesActivos) {
+                jcbClientesActivos.addItem(c.getCodCli() + " - " + c.getNombreCompleto());
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar clientes activos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -40,6 +94,8 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
         jtfCodigoCliente = new javax.swing.JTextField();
         jafecciones = new javax.swing.JLabel();
         jtfAfecciones = new javax.swing.JTextField();
+        jafecciones1 = new javax.swing.JLabel();
+        jcbClientesActivos = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -131,6 +187,11 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        jafecciones1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jafecciones1.setText("Clientes activos");
+
+        jcbClientesActivos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         jDesktopPane3.setLayer(jGestiondeClientes9, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane3.setLayer(Jcodigocliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane3.setLayer(jnombrecompleto, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -150,6 +211,8 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
         jDesktopPane3.setLayer(jtfCodigoCliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane3.setLayer(jafecciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane3.setLayer(jtfAfecciones, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jafecciones1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane3.setLayer(jcbClientesActivos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane3Layout = new javax.swing.GroupLayout(jDesktopPane3);
         jDesktopPane3.setLayout(jDesktopPane3Layout);
@@ -161,17 +224,6 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
                         .addGap(175, 175, 175)
                         .addComponent(jGestiondeClientes9))
                     .addGroup(jDesktopPane3Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane3Layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jDesktopPane3Layout.createSequentialGroup()
@@ -182,13 +234,13 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
                                 .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jtelefono)
                                     .addComponent(jedad)
-                                    .addComponent(jafecciones)
-                                    .addComponent(jcbActivo))
-                                .addGap(75, 75, 75)
+                                    .addComponent(jafecciones))
+                                .addGap(102, 102, 102)
                                 .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtfEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtfAfecciones, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jtfAfecciones, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jcbClientesActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jDesktopPane3Layout.createSequentialGroup()
                                 .addComponent(jnombrecompleto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -196,8 +248,25 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
                             .addGroup(jDesktopPane3Layout.createSequentialGroup()
                                 .addComponent(Jcodigocliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jtfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                                .addComponent(jtfCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jafecciones1)
+                            .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(41, 41, 41)
+                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane3Layout.createSequentialGroup()
+                        .addGap(204, 204, 204)
+                        .addComponent(jcbActivo)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         jDesktopPane3Layout.setVerticalGroup(
             jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,16 +299,20 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
                 .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jafecciones)
                     .addComponent(jtfAfecciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jcbActivo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jcbActivo)
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jafecciones1)
+                    .addComponent(jcbClientesActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jDesktopPane3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,6 +334,7 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfEdadActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        jtfCodigoCliente.setText("");
         jtfDni.setText("");
         jtfNombreCompleto.setText("");
         jtfTelefono.setText("");
@@ -309,6 +383,7 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
             jtfEdad.setText("");
             jtfAfecciones.setText("");
             jcbActivo.setSelected(false);
+            cargarClientesActivos(); // refresca el combobox
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -366,6 +441,8 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
             jtfAfecciones.setText("");
             jcbActivo.setSelected(false);
             clienteActual = null;
+
+            cargarClientesActivos(); // refresca el combobox
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrip un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -440,12 +517,14 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
     private javax.swing.JDesktopPane jDesktopPane3;
     private javax.swing.JLabel jGestiondeClientes9;
     private javax.swing.JLabel jafecciones;
+    private javax.swing.JLabel jafecciones1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JCheckBox jcbActivo;
+    private javax.swing.JComboBox<String> jcbClientesActivos;
     private javax.swing.JLabel jdni;
     private javax.swing.JLabel jedad;
     private javax.swing.JLabel jnombrecompleto;

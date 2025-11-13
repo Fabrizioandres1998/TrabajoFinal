@@ -57,6 +57,7 @@ public class Consultorio {
 
     @Override
     public String toString() {
-        return "Consultorio N° " + nroConsultorio;
+        return nroConsultorio + " - " + usos;
     }
+
 }

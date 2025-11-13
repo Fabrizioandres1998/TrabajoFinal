@@ -22,9 +22,28 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
     /**
      * Creates new form GestionConsultorios
      */
-    public GestionConsultorios() {
+    public GestionConsultorios(Conexion conexion) {
         initComponents();
         this.conexion = conexion;
+        cargarConsultoriosActivos();
+        jbNuevoActionPerformed(null);
+    }
+
+    private void cargarConsultoriosActivos() {
+        try {
+            ConsultorioData cd = new ConsultorioData(conexion);
+            java.util.List<Consultorio> lista = cd.listarConsultoriosAptos();
+
+            jcbConsultoriosActivos.removeAllItems(); // limpia combo
+
+            for (Consultorio c : lista) {
+                jcbConsultoriosActivos.addItem(c);
+            }
+
+            jcbConsultoriosActivos.setSelectedIndex(-1); // sin selección inicial
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar consultorios activos: " + e.getMessage());
+        }
     }
 
     /**
@@ -48,8 +67,15 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
         jbModificar = new javax.swing.JButton();
-        jbEliminar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
+        jCapacidad1 = new javax.swing.JLabel();
+        jcbConsultoriosActivos = new javax.swing.JComboBox<>();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setAutoscrolls(true);
 
         jDesktopPane1.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -64,7 +90,7 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
         jNombre.setText("Usos:");
 
         jCapacidad.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jCapacidad.setText("Capacidad :");
+        jCapacidad.setText("Equipamiento:");
 
         jcbApto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jcbApto.setText("Apto");
@@ -101,21 +127,21 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jbEliminar.setText("Eliminar");
-        jbEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
-        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEliminarActionPerformed(evt);
-            }
-        });
-
         jbBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBuscarActionPerformed(evt);
+            }
+        });
+
+        jCapacidad1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jCapacidad1.setText("Consultorios activos");
+
+        jcbConsultoriosActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbConsultoriosActivosActionPerformed(evt);
             }
         });
 
@@ -130,49 +156,49 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jbNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCapacidad1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jcbConsultoriosActivos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jCodigoConsultorio)
-                        .addGap(18, 18, 18)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jGestionDeConsultorio)
-                            .addComponent(jtfCodigoConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(181, 181, 181)
+                        .addComponent(jcbApto))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jtfCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jCapacidad)
-                                        .addComponent(jNombre)
-                                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                            .addGap(55, 55, 55)
-                                            .addComponent(jcbApto))
-                                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                            .addGap(61, 61, 61)
-                                            .addComponent(jtfUsos, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jCapacidad1)
+                                .addGap(44, 44, 44)
+                                .addComponent(jcbConsultoriosActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCapacidad)
+                                    .addComponent(jNombre)
+                                    .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtfUsos, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtfCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addGap(89, 89, 89)
                                 .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98))))
+                                .addGap(52, 52, 52)
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jCodigoConsultorio)
+                                .addGap(18, 18, 18)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jGestionDeConsultorio)
+                                    .addComponent(jtfCodigoConsultorio, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,16 +217,22 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCapacidad)
                     .addComponent(jtfCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(19, 19, 19)
                 .addComponent(jcbApto)
-                .addGap(48, 48, 48)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCapacidad1)
+                            .addComponent(jcbConsultoriosActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -222,140 +254,121 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbAptoActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        // TODO add your handling code here:
         jtfCodigoConsultorio.setText("");
         jtfUsos.setText("");
         jtfCapacidad.setText("");
         jcbApto.setSelected(false);
+        consultorioActual = null;
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         try {
-            String cod = jtfCodigoConsultorio.getText();
-            String usos = jtfUsos.getText();
-            String capacidad = jtfCapacidad.getText();
+            String usos = jtfUsos.getText().trim();
+            String capacidad = jtfCapacidad.getText().trim();
             boolean apto = jcbApto.isSelected();
 
-            if (cod.isEmpty() || usos.isEmpty() || capacidad.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+            if (usos.isEmpty() || capacidad.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes completar todos los campos obligatorios", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            Consultorio c = new Consultorio(usos, capacidad, apto);
+            Consultorio nuevo = new Consultorio(usos, capacidad, apto);
             ConsultorioData cd = new ConsultorioData(conexion);
-            cd.guardarConsultorio(c);
-            JOptionPane.showMessageDialog(this, "Masajista guardado correctamente");
+            cd.guardarConsultorio(nuevo);
 
-            jtfCodigoConsultorio.setText("");
-            jtfUsos.setText("");
-            jtfCapacidad.setText("");
-            jcbApto.setSelected(false);
+            consultorioActual = nuevo;
+            jtfCodigoConsultorio.setText(String.valueOf(nuevo.getNroConsultorio()));
+
+            JOptionPane.showMessageDialog(this, "Consultorio guardado correctamente");
+            cargarConsultoriosActivos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al guardar el consultorio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
         try {
             if (consultorioActual == null) {
-                JOptionPane.showMessageDialog(this, "Primero debes buscar un consultorio", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Primero debes buscar un consultorio", "Atención", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            String codigo = jtfCodigoConsultorio.getText().trim();
             String usos = jtfUsos.getText().trim();
             String capacidad = jtfCapacidad.getText().trim();
-            boolean estado = jcbApto.isSelected();
+            boolean apto = jcbApto.isSelected();
 
-            if (codigo.isEmpty() || usos.isEmpty() || capacidad.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+            if (usos.isEmpty() || capacidad.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes completar todos los campos obligatorios", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
             consultorioActual.setUsos(usos);
             consultorioActual.setEquipamiento(capacidad);
-            consultorioActual.setApto(estado);
+            consultorioActual.setApto(apto);
 
             ConsultorioData cd = new ConsultorioData(conexion);
             cd.actualizarConsultorio(consultorioActual);
 
-            JOptionPane.showMessageDialog(this, "Masajista actualizado correctamente");
-
-            jtfCodigoConsultorio.setText("");
-            jtfUsos.setText("");
-            jtfCapacidad.setText("");
-            jcbApto.setSelected(false);
+            JOptionPane.showMessageDialog(this, "Consultorio actualizado correctamente");
+            cargarConsultoriosActivos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al modificar el consultorio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
-    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         try {
-            if (consultorioActual == null) {
-                JOptionPane.showMessageDialog(this, "Debes buscar un consultorio antes de eliminarlo", "Error", JOptionPane.ERROR_MESSAGE);
+            if (jtfCodigoConsultorio.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingresa un código de consultorio para buscar", "Atención", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            int confirmacion = JOptionPane.showConfirmDialog(this,
-                    "Seguro que deseas eliminar este consultorio?",
-                    "Confirmar eliminacion",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                ConsultorioData cd = new ConsultorioData(conexion);
-                cd.eliminarConsultorio(consultorioActual.getNroConsultorio());
-                JOptionPane.showMessageDialog(this, "Masajista eliminado correctamente");
-
-                jtfCodigoConsultorio.setText("");
-                jtfUsos.setText("");
-                jtfCapacidad.setText("");
-                jcbApto.setSelected(false);
-
-                consultorioActual = null;
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error al eliminar el masajista: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jbEliminarActionPerformed
-
-    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        try {
             int nro = Integer.parseInt(jtfCodigoConsultorio.getText().trim());
-
             ConsultorioData cd = new ConsultorioData(conexion);
-            Consultorio c = cd.buscarConsultorio(nro);
+            Consultorio encontrado = cd.buscarConsultorio(nro);
 
-            if (c != null) {
-                consultorioActual = c;
-                jtfUsos.setText(c.getUsos());
-                jtfCapacidad.setText(c.getEquipamiento());
-                jcbApto.setSelected(c.isApto());
+            if (encontrado != null) {
+                consultorioActual = encontrado;
+                jtfUsos.setText(encontrado.getUsos());
+                jtfCapacidad.setText(encontrado.getEquipamiento());
+                jcbApto.setSelected(encontrado.isApto());
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró ningún consultorio", "No encontrado", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se encontró ningún consultorio con ese número", "No encontrado", JOptionPane.INFORMATION_MESSAGE);
             }
-
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El código debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al buscar el consultorio: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
+    private void jcbConsultoriosActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbConsultoriosActivosActionPerformed
+        Consultorio seleccionado = (Consultorio) jcbConsultoriosActivos.getSelectedItem();
+        if (seleccionado != null) {
+            consultorioActual = seleccionado;
+            jtfCodigoConsultorio.setText(String.valueOf(seleccionado.getNroConsultorio()));
+            jtfUsos.setText(seleccionado.getUsos());
+            jtfCapacidad.setText(seleccionado.getEquipamiento());
+            jcbApto.setSelected(seleccionado.isApto());
+        }
+    }//GEN-LAST:event_jcbConsultoriosActivosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCapacidad;
+    private javax.swing.JLabel jCapacidad1;
     private javax.swing.JLabel jCodigoConsultorio;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jGestionDeConsultorio;
     private javax.swing.JLabel jNombre;
     private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JCheckBox jcbApto;
+    private javax.swing.JComboBox<Consultorio> jcbConsultoriosActivos;
     private javax.swing.JTextField jtfCapacidad;
     private javax.swing.JTextField jtfCodigoConsultorio;
     private javax.swing.JTextField jtfUsos;

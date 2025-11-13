@@ -2,6 +2,7 @@ package Vistas;
 
 import Modelo.Cliente;
 import Modelo.DiaDeSpa;
+import Modelo.Instalacion;
 import Modelo.Masajista;
 import Modelo.Producto;
 import Modelo.Sesion_turno;
@@ -29,7 +30,101 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
         initComponents();
         this.conexion = conexion;
         cargarCombos();
+        cargarDiasDeSpaActivos();
         jtfMonto.setEditable(false);
+        jcbDiasDeSpaActivos.addActionListener(e -> {
+            DiaDeSpa seleccionado = (DiaDeSpa) jcbDiasDeSpaActivos.getSelectedItem();
+            if (seleccionado != null) {
+                cargarDatosDiaDeSpa(seleccionado);
+            }
+        });
+    }
+
+    private void cargarDatosDiaDeSpa(DiaDeSpa dia) {
+        try {
+            diaActual = dia;
+
+            // Cargar datos básicos
+            jtfCodigo.setText(String.valueOf(dia.getCodPack()));
+            jtfFecha.setText(dia.getFechaYHora().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            jtfPreferencias.setText(dia.getPreferencias());
+            jtfMonto.setText(String.format("%.2f", dia.getMonto()));
+            jcbActivo.setSelected(dia.isEstado());
+
+            // Seleccionar cliente correspondiente
+            Cliente cliente = dia.getCliente();
+            if (cliente != null) {
+                for (int i = 0; i < jcbCliente.getItemCount(); i++) {
+                    Cliente c = jcbCliente.getItemAt(i);
+                    if (c.getCodCli() == cliente.getCodCli()) {
+                        jcbCliente.setSelectedIndex(i);
+                        break;
+                    }
+                }
+            }
+
+            // Cargar los turnos asociados al día de spa
+            jcbTurnos.removeAllItems();
+            if (dia.getSesiones() != null) {
+                for (Sesion_turno s : dia.getSesiones()) {
+                    jcbTurnos.addItem(s);
+                }
+                jcbTurnos.setEnabled(true);
+            } else {
+                jcbTurnos.setEnabled(false);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos del Día de Spa: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void cargarDiasDeSpaActivos() {
+        try {
+            DiaDeSpaData diaData = new DiaDeSpaData(conexion);
+            List<DiaDeSpa> dias = diaData.listarDiasDeSpaActivos();
+
+            jcbDiasDeSpaActivos.removeAllItems();
+            for (DiaDeSpa d : dias) {
+                jcbDiasDeSpaActivos.addItem(d);
+            }
+
+            jcbDiasDeSpaActivos.setSelectedIndex(-1); // sin seleccion inicial
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar días de spa activos: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    private void actualizarMontoDiaDeSpa(DiaDeSpa dia) {
+        TurnoData td = new TurnoData(conexion);
+        DiaDeSpaData dd = new DiaDeSpaData(conexion);
+
+        double total = 0;
+
+        // recorrer todos los turnos del día
+        for (Sesion_turno t : td.listarTurnosPorDiaDeSpa(dia.getCodPack())) {
+
+            // sumar precio del tratamiento
+            if (t.getTratamiento() != null) {
+                total += t.getTratamiento().getCosto();
+            }
+
+            // sumar precio de la instalación
+            if (t.getInstalaciones() != null && !t.getInstalaciones().isEmpty()) {
+                for (Instalacion inst : t.getInstalaciones()) {
+                    total += inst.getPrecio30m();
+                }
+            }
+        }
+
+        dia.setMonto(total);
+        dd.actualizarDiaDeSpa(dia);
+
+        System.out.println("Monto total actualizado: $" + total);
     }
 
     @SuppressWarnings("unchecked")
@@ -56,6 +151,8 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
         jtfPreferencias = new javax.swing.JTextField();
         jMasajista2 = new javax.swing.JLabel();
         jtfMonto = new javax.swing.JTextField();
+        jMasajista3 = new javax.swing.JLabel();
+        jcbDiasDeSpaActivos = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -80,6 +177,12 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
 
         jMasajista.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jMasajista.setText("Turnos :   ");
+
+        jcbTurnos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTurnosActionPerformed(evt);
+            }
+        });
 
         jcbActivo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jcbActivo.setText("Activo");
@@ -135,6 +238,15 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
         jMasajista2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jMasajista2.setText("Monto:");
 
+        jMasajista3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jMasajista3.setText("Dias de spa activos:");
+
+        jcbDiasDeSpaActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbDiasDeSpaActivosActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(jGestiondeDiasdeSpa, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCodigoDiadeSpa, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jFecha, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -154,109 +266,128 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jtfPreferencias, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jMasajista2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jtfMonto, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jMasajista3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jcbDiasDeSpaActivos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jGestiondeDiasdeSpa)
                 .addGap(153, 153, 153))
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jFecha)
-                            .addComponent(jCodigoDiadeSpa)
-                            .addComponent(jCliente)
+                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
                             .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jMasajista2)
-                                .addComponent(jMasajista))
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jcbActivo)
-                                .addGap(18, 18, 18)))
-                        .addGap(32, 32, 32))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jMasajista1)
-                        .addGap(18, 18, 18)))
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtfFecha)
-                            .addComponent(jcbCliente, 0, 160, Short.MAX_VALUE)
-                            .addComponent(jtfCodigo))
-                        .addComponent(jcbTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addGap(24, 24, 24)
+                                    .addComponent(jMasajista1)
+                                    .addGap(32, 32, 32))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jCliente)
+                                        .addComponent(jFecha))
+                                    .addGap(18, 18, 18)))
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtfFecha)
+                                        .addComponent(jcbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jcbDiasDeSpaActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jMasajista3)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jMasajista2)
+                                    .addComponent(jMasajista)))
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jcbTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jcbActivo)
+                                        .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jCodigoDiadeSpa))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jGestiondeDiasdeSpa)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCodigoDiadeSpa)
                     .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFecha)
                     .addComponent(jtfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCliente)
                     .addComponent(jcbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jMasajista)
-                    .addComponent(jcbTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jMasajista1)
+                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMasajista1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jMasajista2))
+                    .addComponent(jMasajista2)
+                    .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jcbActivo)
-                .addGap(51, 51, 51)
+                .addGap(55, 55, 55)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jMasajista)
+                    .addComponent(jcbTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jMasajista3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbDiasDeSpaActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jDesktopPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jDesktopPane1))
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -333,6 +464,7 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
                     "Exito", JOptionPane.INFORMATION_MESSAGE);
 
             jbNuevoActionPerformed(evt); // limpia campos
+            cargarDiasDeSpaActivos();
         } catch (DateTimeParseException e) {
             // captura errores de formato de fecha y hora
             JOptionPane.showMessageDialog(this, "Formato de fecha y hora invalido. Usa el formato: yyyy-MM-dd HH:mm",
@@ -396,6 +528,8 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
                     "Exito", JOptionPane.INFORMATION_MESSAGE);
 
             jbNuevoActionPerformed(evt); // limpia campos
+            cargarDiasDeSpaActivos();
+
         } catch (DateTimeParseException e) {
             // captura errores de formato de fecha
             JOptionPane.showMessageDialog(this,
@@ -412,6 +546,7 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // limpia todos los campos de la interfaz y resetea diaActual
+        jtfMonto.setText("");
         jtfCodigo.setText("");
         jtfFecha.setText("");
         jtfPreferencias.setText("");
@@ -530,6 +665,19 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
+    private void jcbTurnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTurnosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbTurnosActionPerformed
+
+    private void jcbDiasDeSpaActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDiasDeSpaActivosActionPerformed
+        DiaDeSpa seleccionado = (DiaDeSpa) jcbDiasDeSpaActivos.getSelectedItem();
+        if (seleccionado != null) {
+            cargarDatosDiaDeSpa(seleccionado);
+            actualizarMontoDiaDeSpa(seleccionado); // 🔹 agrega esta línea
+            jtfMonto.setText(String.format("%.2f", seleccionado.getMonto())); // 🔹 muestra el total
+        }
+    }//GEN-LAST:event_jcbDiasDeSpaActivosActionPerformed
+
     private void cargarCombos() {
         try {
             // valida que la conexion no sea nula
@@ -573,6 +721,7 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jMasajista;
     private javax.swing.JLabel jMasajista1;
     private javax.swing.JLabel jMasajista2;
+    private javax.swing.JLabel jMasajista3;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
@@ -580,6 +729,7 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbNuevo;
     private javax.swing.JCheckBox jcbActivo;
     private javax.swing.JComboBox<Cliente> jcbCliente;
+    private javax.swing.JComboBox<DiaDeSpa> jcbDiasDeSpaActivos;
     private javax.swing.JComboBox<Sesion_turno> jcbTurnos;
     private javax.swing.JTextField jtfCodigo;
     private javax.swing.JTextField jtfFecha;

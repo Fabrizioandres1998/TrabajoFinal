@@ -9,25 +9,28 @@ import Modelo.Instalacion;
 import Persistencia.InstalacionData;
 import javax.swing.JOptionPane;
 import Persistencia.Conexion;
+
 /**
  *
  * @author vanne
  */
 public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
-    
+
     private Conexion conexion;
     private Instalacion instalacionActual;
     private InstalacionData instalacionData;
+
     /**
      * Creates new form GestiondeInstalaciones
      */
-    public GestiondeInstalaciones() {
+    public GestiondeInstalaciones(Conexion conexion) {
         initComponents();
         this.conexion = conexion;
         this.instalacionData = new InstalacionData(conexion);
+        cargarInstalacionesActivas();
+        jbNuevoActionPerformed(null);
     }
 
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,9 +53,16 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
         jbModificar = new javax.swing.JButton();
-        jbEliminar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
         jtfPrecio = new javax.swing.JTextField();
+        jCapacidad1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setAutoscrolls(true);
 
         jDesktopPane1.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -67,10 +77,10 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jNombre.setText("Nombre :  ");
 
         jTipo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jTipo.setText("Precio:");
+        jTipo.setText("Precio :");
 
         jCapacidad.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jCapacidad.setText("Capacidad : ");
+        jCapacidad.setText("Detalles de uso:");
 
         jcbActivo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jcbActivo.setText("Activo");
@@ -102,21 +112,21 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jbEliminar.setText("Eliminar");
-        jbEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 153)));
-        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEliminarActionPerformed(evt);
-            }
-        });
-
         jbBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbBuscarActionPerformed(evt);
+            }
+        });
+
+        jCapacidad1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jCapacidad1.setText("Instalaciones activas");
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -132,50 +142,52 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jbNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jtfPrecio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jCapacidad1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jComboBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addGap(0, 143, Short.MAX_VALUE)
+                .addComponent(jGestioDeInstalacion)
+                .addGap(144, 144, 144))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(44, 44, 44)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jCodigoInstalacion)
                             .addComponent(jNombre)
                             .addComponent(jTipo)
-                            .addComponent(jCapacidad))
-                        .addGap(48, 48, 48)
+                            .addComponent(jCapacidad)
+                            .addComponent(jCapacidad1))
+                        .addGap(42, 42, 42)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbActivo)
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jtfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                .addComponent(jtfCodigoInstalacion)
-                                .addComponent(jtfCapacidad, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jtfPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119)))
-                .addContainerGap(116, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jGestioDeInstalacion)
-                .addGap(144, 144, 144))
-            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jcbActivo)
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                        .addComponent(jtfCodigoInstalacion)
+                                        .addComponent(jtfCapacidad, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jtfPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
+                                .addContainerGap(116, Short.MAX_VALUE))))))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,12 +212,15 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
                     .addComponent(jtfCapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jcbActivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCapacidad1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(81, 81, 81))
         );
@@ -225,150 +240,153 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+private void cargarInstalacionesActivas() {
+        try {
+            InstalacionData id = new InstalacionData(conexion);
+            java.util.List<Instalacion> instalaciones = id.listarInstalacionesActivas();
+
+            jComboBox1.removeAllItems();
+
+            for (Instalacion i : instalaciones) {
+                jComboBox1.addItem(i);
+            }
+
+            jComboBox1.setSelectedIndex(-1); // sin selección inicial
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar instalaciones activas: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
-        // TODO add your handling code here:
         jtfCodigoInstalacion.setText("");
         jtfNombre.setText("");
         jtfPrecio.setText("");
         jtfCapacidad.setText("");
         jcbActivo.setSelected(false);
+        instalacionActual = null;
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
         try {
             String nombre = jtfNombre.getText().trim();
-            String capacidad = jtfCapacidad.getText().trim();
-            double precio = Double.parseDouble(jtfPrecio.getText().trim());
-            boolean estado = jcbActivo.isSelected();
+            String detalle = jtfCapacidad.getText().trim();
+            String precioTxt = jtfPrecio.getText().trim();
+            boolean activo = jcbActivo.isSelected();
 
-            if (nombre.isEmpty() || capacidad.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+            if (nombre.isEmpty() || detalle.isEmpty() || precioTxt.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes completar todos los campos obligatorios", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            
-            Instalacion i = new Instalacion(nombre, capacidad, precio, estado);
+            double precio = Double.parseDouble(precioTxt);
+
+            Instalacion nueva = new Instalacion(nombre, detalle, precio, activo);
             InstalacionData id = new InstalacionData(conexion);
-            id.guardarInstalacion(i);
-            
-            JOptionPane.showMessageDialog(this, "Instalación guardada con Cod: " + i.getCodInstal());
-            
+            id.guardarInstalacion(nueva);
+
+            instalacionActual = nueva;
+            jtfCodigoInstalacion.setText(String.valueOf(nueva.getCodInstal()));
+
+            JOptionPane.showMessageDialog(this, "Instalación guardada correctamente");
+            cargarInstalacionesActivas();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El precio debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al guardar la instalación: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        // TODO add your handling code here:
-        
-            String codigo = jtfCodigoInstalacion.getText();
-            String nombre = jtfNombre.getText().trim();
-            String capacidad = jtfCapacidad.getText().trim();
-            Double precio = Double.valueOf(jtfPrecio.getText().trim());
-            boolean estado = jcbActivo.isSelected();
         try {
             if (instalacionActual == null) {
-                JOptionPane.showMessageDialog(this, "Primero debes buscar un masajista", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Primero debes buscar una instalación", "Atención", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            instalacionActual.setNombre(jtfNombre.getText().trim());
-            instalacionActual.setdetalle_de_uso(jtfCapacidad.getText().trim());
-            instalacionActual.setPrecio30m(Double.parseDouble(jtfPrecio.getText().trim()));
-            instalacionActual.setEstado(jcbActivo.isSelected());
+            String nombre = jtfNombre.getText().trim();
+            String detalle = jtfCapacidad.getText().trim();
+            String precioTxt = jtfPrecio.getText().trim();
+            boolean activo = jcbActivo.isSelected();
 
-            if (codigo.isEmpty() || nombre.isEmpty() || capacidad.isEmpty() || precio == null ) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+            if (nombre.isEmpty() || detalle.isEmpty() || precioTxt.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes completar todos los campos obligatorios", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            Instalacion i = new Instalacion(nombre, capacidad, precio, estado);
+            double precio = Double.parseDouble(precioTxt);
+
+            instalacionActual.setNombre(nombre);
+            instalacionActual.setdetalle_de_uso(detalle);
+            instalacionActual.setPrecio30m(precio);
+            instalacionActual.setEstado(activo);
+
             InstalacionData id = new InstalacionData(conexion);
-            id.actualizarInstalacion(i);
+            id.actualizarInstalacion(instalacionActual);
 
-            JOptionPane.showMessageDialog(this, "Instalacion actualizada correctamente");
+            JOptionPane.showMessageDialog(this, "Instalación modificada correctamente");
+            cargarInstalacionesActivas();
 
-           jtfCodigoInstalacion.setText("");
-            jtfNombre.setText("");
-            jtfPrecio.setText("");
-            jtfCapacidad.setText("");
-            jcbActivo.setSelected(false);
-
-
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El precio debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al modificar la instalación: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
-    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        // TODO add your handling code here:
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         try {
-            if (instalacionActual == null) {
-                JOptionPane.showMessageDialog(this, "Debes buscar un masajista antes de eliminarlo", "Error", JOptionPane.ERROR_MESSAGE);
+            String codigoTxt = jtfCodigoInstalacion.getText().trim();
+            if (codigoTxt.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Debes ingresar un código de instalación para buscar", "Atención", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            int confirmacion = JOptionPane.showConfirmDialog(this,
-                    "Seguro que deseas eliminar esta instalacion?",
-                    "Confirmar eliminacion",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                InstalacionData id = new InstalacionData(conexion);
-                id.eliminarInstalacion(instalacionActual.getCodInstal());
-                JOptionPane.showMessageDialog(this, "Instalacion eliminada correctamente");
-
-                jtfCodigoInstalacion.setText("");
-                jtfNombre.setText("");
-                jtfPrecio.setText("");
-                jtfCapacidad.setText("");
-                jcbActivo.setSelected(false);
-
-                instalacionActual = null;
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error al eliminar la instalacion: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jbEliminarActionPerformed
-
-    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
-        try {
-            int cod = Integer.parseInt(jtfCodigoInstalacion.getText().trim());
-
-            
-
+            int codigo = Integer.parseInt(codigoTxt);
             InstalacionData id = new InstalacionData(conexion);
-            
-            Instalacion i = id.buscarInstalacion(cod);
+            Instalacion encontrada = id.buscarInstalacion(codigo);
 
-            if (i != null) {
-                instalacionActual = i;
-                jtfNombre.setText(i.getNombre());
-                jtfCapacidad.setText(i.getdetalle_de_uso());
-                jcbActivo.setSelected(i.isEstado());
+            if (encontrada != null) {
+                instalacionActual = encontrada;
+                jtfNombre.setText(encontrada.getNombre());
+                jtfCapacidad.setText(encontrada.getdetalle_de_uso());
+                jtfPrecio.setText(String.valueOf(encontrada.getPrecio30m()));
+                jcbActivo.setSelected(encontrada.isEstado());
             } else {
-                JOptionPane.showMessageDialog(this, "No se encontró ninguna instalacion", "No encontrado", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se encontró ninguna instalación con ese código", "No encontrado", JOptionPane.INFORMATION_MESSAGE);
             }
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar un código de instalación válido.");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El código debe ser un número válido", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar la instalación: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        Instalacion seleccionada = (Instalacion) jComboBox1.getSelectedItem();
+        if (seleccionada != null) {
+            instalacionActual = seleccionada;
+            jtfCodigoInstalacion.setText(String.valueOf(seleccionada.getCodInstal()));
+            jtfNombre.setText(seleccionada.getNombre());
+            jtfCapacidad.setText(seleccionada.getdetalle_de_uso());
+            jtfPrecio.setText(String.valueOf(seleccionada.getPrecio30m()));
+            jcbActivo.setSelected(seleccionada.isEstado());
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCapacidad;
+    private javax.swing.JLabel jCapacidad1;
     private javax.swing.JLabel jCodigoInstalacion;
+    private javax.swing.JComboBox<Instalacion> jComboBox1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jGestioDeInstalacion;
     private javax.swing.JLabel jNombre;
     private javax.swing.JLabel jTipo;
     private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;

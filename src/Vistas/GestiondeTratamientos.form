@@ -7,6 +7,12 @@
     <Component class="javax.swing.JProgressBar" name="jProgressBar1">
     </Component>
   </NonVisualComponents>
+  <Properties>
+    <Property name="closable" type="boolean" value="true"/>
+    <Property name="iconifiable" type="boolean" value="true"/>
+    <Property name="maximizable" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="true"/>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -53,50 +59,64 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
                           <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jCodigoTratamiento" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jNombre" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jDescripcion" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jDuracion" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jCosto" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jtfCosto" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="jtfNombre" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="jtfCodigo" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="jtfDetalle" alignment="0" min="-2" pref="184" max="-2" attributes="0"/>
-                              <Component id="jtfDuracion" min="-2" pref="184" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="-2" pref="145" max="-2" attributes="0"/>
+                          <Component id="jGestionDeTratamientos" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="jBnuevo" min="-2" pref="60" max="-2" attributes="0"/>
-                  <EmptySpace pref="14" max="32767" attributes="0"/>
-                  <Component id="jBguardar" min="-2" pref="59" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                  <Component id="jBmodificar" min="-2" pref="66" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                  <Component id="jBeliminar" min="-2" pref="61" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                  <Component id="jBbuscar" min="-2" pref="55" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="193" max="-2" attributes="0"/>
-                  <Component id="jGestionDeTratamientos" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jBnuevo" min="-2" pref="60" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                                  <Component id="jBguardar" min="-2" pref="59" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Component id="jBmodificar" min="-2" pref="66" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Component id="jBbuscar" min="-2" pref="55" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jCodigoTratamiento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jNombre" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jDescripcion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jDuracion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCosto" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jcbTratamientosActivos" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jtfCosto" pref="184" max="32767" attributes="0"/>
+                                          <Component id="jtfNombre" pref="184" max="32767" attributes="0"/>
+                                          <Component id="jtfCodigo" pref="184" max="32767" attributes="0"/>
+                                          <Component id="jtfDuracion" pref="184" max="32767" attributes="0"/>
+                                          <Component id="jcbTipo" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Component id="jCosto1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="64" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jDescripcion1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jtfDetalle" min="-2" pref="184" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -117,10 +137,15 @@
                   </Group>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jtfDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcbTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jtfDetalle" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jDescripcion1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jtfDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jDuracion" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -130,17 +155,21 @@
                       <Component id="jtfCosto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jCosto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="59" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jCosto1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcbTratamientosActivos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jBguardar" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jBmodificar" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="jBeliminar" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jBbuscar" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jBnuevo" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -178,7 +207,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Descripcion : "/>
+            <Property name="text" type="java.lang.String" value="Tipo:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jDuracion">
@@ -206,8 +235,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfNombre">
-        </Component>
-        <Component class="javax.swing.JTextField" name="jtfDetalle">
         </Component>
         <Component class="javax.swing.JTextField" name="jtfDuracion">
           <Events>
@@ -238,6 +265,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBnuevoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBguardar">
           <Properties>
@@ -253,6 +283,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBguardarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBmodificar">
           <Properties>
@@ -268,21 +301,9 @@
               </Border>
             </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="jBeliminar">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="12" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Eliminar"/>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder>
-                  <Color PropertyName="color" blue="cc" green="0" red="66" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBmodificarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBbuscar">
           <Properties>
@@ -298,6 +319,58 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBbuscarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jDescripcion1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Detalle:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtfDetalle">
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jcbTipo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbTipoActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jCosto1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tratamientos activos"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jcbTratamientosActivos">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbTratamientosActivosActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Tratamiento&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

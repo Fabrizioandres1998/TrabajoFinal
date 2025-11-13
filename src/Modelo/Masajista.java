@@ -106,9 +106,9 @@ public class Masajista {
         return Objects.equals(this.especialidad, other.especialidad);
     }
 
-    
     @Override
     public String toString() {
-        return nombreYApellido;
+        return matricula + " - " + nombreYApellido;
     }
+
 }

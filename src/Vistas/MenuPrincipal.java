@@ -56,11 +56,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmiInstalaciones = new javax.swing.JMenuItem();
         jmiConsultorios = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jConsultas = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +96,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jGestion.add(jmiMasajista);
 
         jmiTratamiento.setText("Tratamiento");
+        jmiTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTratamientoActionPerformed(evt);
+            }
+        });
         jGestion.add(jmiTratamiento);
 
         jmiDiaDeSpa.setText("Dia de spa");
@@ -128,38 +128,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jGestion.add(jmiInstalaciones);
 
         jmiConsultorios.setText("Consultorios");
+        jmiConsultorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiConsultoriosActionPerformed(evt);
+            }
+        });
         jGestion.add(jmiConsultorios);
         jGestion.add(jSeparator1);
 
         jMenuBar1.add(jGestion);
-
-        jConsultas.setForeground(new java.awt.Color(153, 0, 204));
-        jConsultas.setText("Consultas");
-        jConsultas.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-
-        jMenuItem6.setText("Listar Clientes");
-        jConsultas.add(jMenuItem6);
-
-        jMenuItem7.setText("Listar Masajistas");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jConsultas.add(jMenuItem7);
-
-        jMenuItem8.setText("Listar Tratamientos");
-        jConsultas.add(jMenuItem8);
-
-        jMenuItem9.setText("Listar Turnos");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jConsultas.add(jMenuItem9);
-
-        jMenuBar1.add(jConsultas);
 
         setJMenuBar(jMenuBar1);
 
@@ -197,16 +174,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jdpMenuPrincipal.moveToFront(vistaDia);
     }//GEN-LAST:event_jmiDiaDeSpaActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
     private void jGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGestionActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jGestionActionPerformed
 
     private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed
@@ -222,9 +191,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiTurnosActionPerformed
 
     private void jmiInstalacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInstalacionesActionPerformed
-        // TODO add your handling code here:
-
+        GestiondeInstalaciones gi = new GestiondeInstalaciones(conexion);
+        jdpMenuPrincipal.add(gi);
+        gi.setVisible(true);
     }//GEN-LAST:event_jmiInstalacionesActionPerformed
+
+    private void jmiTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTratamientoActionPerformed
+        GestiondeTratamientos gt = new GestiondeTratamientos(conexion);
+        jdpMenuPrincipal.add(gt);
+        gt.setVisible(true);
+    }//GEN-LAST:event_jmiTratamientoActionPerformed
+
+    private void jmiConsultoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultoriosActionPerformed
+        GestionConsultorios gc = new GestionConsultorios(conexion);
+        jdpMenuPrincipal.add(gc);
+        gc.setVisible(true);
+    }//GEN-LAST:event_jmiConsultoriosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,13 +244,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jConsultas;
     private javax.swing.JMenu jGestion;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JDesktopPane jdpMenuPrincipal;
     private javax.swing.JMenuItem jmiCliente;

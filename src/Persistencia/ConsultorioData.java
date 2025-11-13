@@ -17,29 +17,30 @@ public class ConsultorioData {
     }
 
     public void actualizarConsultorio(Consultorio c) {
-    String sql = "UPDATE consultorio SET usos = ?, equipamiento = ?, apto = ? WHERE nroConsultorio = ?";
-    
-    try {
-        
-        PreparedStatement ps = conex.prepareStatement(sql);
+        String sql = "UPDATE consultorio SET usos = ?, equipamiento = ?, apto = ? WHERE nroConsultorio = ?";
 
-        ps.setString(1, c.getUsos());
-        ps.setString(2, c.getEquipamiento());
-        ps.setBoolean(3, c.isApto());
-        ps.setInt(4, c.getNroConsultorio());
-        int filasAfectadas = ps.executeUpdate();
+        try {
 
-        if (filasAfectadas > 0) {
-            System.out.println("Consultorio Nro " + c.getNroConsultorio() + " actualizado correctamente.");
-        } else {
-            System.out.println("No se encontró el consultorio para actualizar.");
+            PreparedStatement ps = conex.prepareStatement(sql);
+
+            ps.setString(1, c.getUsos());
+            ps.setString(2, c.getEquipamiento());
+            ps.setBoolean(3, c.isApto());
+            ps.setInt(4, c.getNroConsultorio());
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Consultorio Nro " + c.getNroConsultorio() + " actualizado correctamente.");
+            } else {
+                System.out.println("No se encontró el consultorio para actualizar.");
+            }
+            ps.close();
+
+        } catch (Exception e) {
+            System.err.println("Error al actualizar consultorio: " + e.getMessage());
         }
-        ps.close();
-        
-    } catch (Exception e) {
-        System.err.println("Error al actualizar consultorio: " + e.getMessage());
     }
-}
+
     // Guarda un nuevo consultorio
     public void guardarConsultorio(Consultorio c) {
         String query = "INSERT INTO consultorio(usos, equipamiento, apto) VALUES (?, ?, ?)";
@@ -116,28 +117,51 @@ public class ConsultorioData {
             System.out.println("Error al incrementar usos: " + e.getMessage());
         }
     }
-    
+
     public void eliminarConsultorio(int nroConsultorio) {
-    
-    String query = "UPDATE consultorio SET apto = 0 WHERE nroConsultorio = ?"; 
-    
-    try {
-    
-        PreparedStatement ps = conex.prepareStatement(query);
-        ps.setInt(1, nroConsultorio);
-        int filasAfectadas = ps.executeUpdate();
-        if (filasAfectadas > 0) {
-            System.out.println("Consultorio Nro " + nroConsultorio + " eliminado (baja lógica) correctamente.");
-        } else {
-            System.out.println("No se encontró el consultorio para eliminar.");
+
+        String query = "UPDATE consultorio SET apto = 0 WHERE nroConsultorio = ?";
+
+        try {
+
+            PreparedStatement ps = conex.prepareStatement(query);
+            ps.setInt(1, nroConsultorio);
+            int filasAfectadas = ps.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Consultorio Nro " + nroConsultorio + " eliminado (baja lógica) correctamente.");
+            } else {
+                System.out.println("No se encontró el consultorio para eliminar.");
+            }
+            ps.close();
+
+        } catch (Exception e) {
+            System.err.println("Error al eliminar consultorio: " + e.getMessage());
+            e.printStackTrace();
         }
-        ps.close();
-        
-    } catch (Exception e) {
-        System.err.println("Error al eliminar consultorio: " + e.getMessage());
-        e.printStackTrace();
     }
-}
-}
 
+    public void eliminarConsultorioFisico(int nroConsultorio) {
 
+        String query = "DELETE FROM consultorio WHERE nroConsultorio = ?";
+
+        try {
+            PreparedStatement ps = conex.prepareStatement(query);
+            ps.setInt(1, nroConsultorio);
+
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Consultorio Nro " + nroConsultorio + " eliminado fisicamente correctamente.");
+            } else {
+                System.out.println("No se encontro el consultorio para eliminar.");
+            }
+
+            ps.close();
+
+        } catch (Exception e) {
+            System.err.println("Error al eliminar consultorio fisico: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+}

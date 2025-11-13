@@ -32,6 +32,7 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
         initComponents();
         this.conexion = conexion;
         cargarCombos();
+        cargarTurnosActivos();
     }
 
     private void cargarCombos() {
@@ -56,6 +57,37 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar tratamientos: " + e.getMessage());
         }
+    }
+
+    private void cargarTurnosActivos() {
+        try {
+            TurnoData td = new TurnoData(conexion);
+            List<Sesion_turno> turnos = td.listarTurnosActivos();
+            jcbTurnosActivos.removeAllItems();
+            jcbTurnosActivos.addItem(null); // opción vacía
+            for (Sesion_turno t : turnos) {
+                jcbTurnosActivos.addItem(t);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar turnos activos: " + e.getMessage());
+        }
+    }
+
+    private void actualizarValorTurno() {
+        Tratamiento tratamiento = (Tratamiento) jcbTratamiento.getSelectedItem();
+        Instalacion instalacion = (Instalacion) jcbInstalacion.getSelectedItem();
+
+        double total = 0;
+
+        if (tratamiento != null) {
+            total += tratamiento.getCosto();
+        }
+
+        if (instalacion != null) {
+            total += instalacion.getPrecio30m(); // suma el precio de la instalacion
+        }
+
+        jtfValor.setText(String.valueOf(total));
     }
 
     private void cargarComboConsultorios() {
@@ -150,9 +182,13 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
         jEstado2 = new javax.swing.JLabel();
         jcbDiaDeSpa = new javax.swing.JComboBox<>();
         jtfFechaHoraInicio = new javax.swing.JTextField();
-        jtfFechaHoraFin = new javax.swing.JTextField();
+        jtfValor = new javax.swing.JTextField();
         jcbTratamiento = new javax.swing.JComboBox<>();
         jcbConsultorio = new javax.swing.JComboBox<>();
+        jEstado3 = new javax.swing.JLabel();
+        jtfFechaHoraFin1 = new javax.swing.JTextField();
+        jEstado4 = new javax.swing.JLabel();
+        jcbTurnosActivos = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -249,9 +285,27 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
         jEstado2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jEstado2.setText("Dia de spa:");
 
+        jcbTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTratamientoActionPerformed(evt);
+            }
+        });
+
         jcbConsultorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbConsultorioActionPerformed(evt);
+            }
+        });
+
+        jEstado3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jEstado3.setText("Valor:");
+
+        jEstado4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jEstado4.setText("Turnos activos");
+
+        jcbTurnosActivos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTurnosActivosActionPerformed(evt);
             }
         });
 
@@ -275,61 +329,77 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jEstado2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jcbDiaDeSpa, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jtfFechaHoraInicio, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtfFechaHoraFin, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtfValor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jcbTratamiento, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jcbConsultorio, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jEstado3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtfFechaHoraFin1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jEstado4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jcbTurnosActivos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(jGestionTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addComponent(jEstado4)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(jCliente))
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(37, 37, 37)
+                                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                        .addGap(146, 146, 146)
+                                        .addComponent(jGestionTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                        .addGap(84, 84, 84)
+                                        .addComponent(jcbActivo)))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCliente)
                                     .addComponent(jMasajista)
+                                    .addComponent(jCodigoTurno)
                                     .addComponent(jFecha)
                                     .addComponent(jHora)
                                     .addComponent(jEstado)
-                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jcbActivo)
-                                        .addComponent(jCodigoTurno))
                                     .addComponent(jEstado1)
-                                    .addComponent(jEstado2))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jcbMasajista, 0, 203, Short.MAX_VALUE)
-                                .addComponent(jtfCodigoTurno)
-                                .addComponent(jcbInstalacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jcbDiaDeSpa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jtfFechaHoraInicio)
-                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(jtfFechaHoraFin)))
-                            .addComponent(jcbTratamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jcbConsultorio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(65, Short.MAX_VALUE))
+                                    .addComponent(jEstado2)
+                                    .addComponent(jEstado3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                        .addComponent(jtfFechaHoraFin1)
+                                        .addGap(55, 55, 55))
+                                    .addComponent(jcbTratamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jcbConsultorio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jtfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jcbMasajista, 0, 203, Short.MAX_VALUE)
+                                                .addComponent(jtfCodigoTurno)
+                                                .addComponent(jcbInstalacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jcbDiaDeSpa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jtfFechaHoraInicio))
+                                            .addComponent(jcbTurnosActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addContainerGap(16, Short.MAX_VALUE))))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,8 +418,8 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
                         .addComponent(jtfFechaHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jMasajista)
-                    .addComponent(jtfFechaHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jtfFechaHoraFin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFecha)
                     .addComponent(jcbTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -366,10 +436,18 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
                     .addComponent(jEstado1)
                     .addComponent(jcbInstalacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jEstado2)
-                    .addComponent(jcbDiaDeSpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcbDiaDeSpa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jEstado2))
+                .addGap(18, 18, 18)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jEstado3)
+                    .addComponent(jtfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jEstado4)
+                    .addComponent(jcbTurnosActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jcbActivo)
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -403,7 +481,8 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
         // limpia todos los campos de la interfaz y resetea turnoActual
         jtfCodigoTurno.setText("");
         jtfFechaHoraInicio.setText("");
-        jtfFechaHoraFin.setText("");
+        jtfFechaHoraFin1.setText("");
+        jtfValor.setText("");
         jcbTratamiento.setSelectedIndex(-1);
         jcbConsultorio.setSelectedIndex(-1);
         jcbMasajista.setSelectedIndex(-1);
@@ -415,41 +494,45 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         try {
-            // valida que todos los campos obligatorios esten completos
-            if (jtfFechaHoraInicio.getText().isEmpty() || jtfFechaHoraFin.getText().isEmpty()
+            if (jtfFechaHoraInicio.getText().isEmpty() || jtfValor.getText().isEmpty()
                     || jcbTratamiento.getSelectedIndex() == -1 || jcbConsultorio.getSelectedIndex() == -1
                     || jcbMasajista.getSelectedIndex() == -1 || jcbDiaDeSpa.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            // parsea las fechas desde los campos de texto
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime fechaInicio = LocalDateTime.parse(jtfFechaHoraInicio.getText(), dtf);
-            LocalDateTime fechaFin = LocalDateTime.parse(jtfFechaHoraFin.getText(), dtf);
+            LocalDateTime fechaFin = LocalDateTime.parse(jtfFechaHoraFin1.getText(), dtf);
 
-            // obtiene objetos seleccionados de los combos
             Tratamiento tratamiento = (Tratamiento) jcbTratamiento.getSelectedItem();
             Consultorio consultorio = (Consultorio) jcbConsultorio.getSelectedItem();
             Masajista masajista = (Masajista) jcbMasajista.getSelectedItem();
             DiaDeSpa diaDeSpa = (DiaDeSpa) jcbDiaDeSpa.getSelectedItem();
-
-            // obtiene instalacion seleccionada y la mete en lista
-            List<Instalacion> instalaciones = new ArrayList<>();
             Instalacion instalacion = (Instalacion) jcbInstalacion.getSelectedItem();
+            List<Instalacion> instalaciones = new ArrayList<>();
             instalaciones.add(instalacion);
-
             boolean estado = jcbActivo.isSelected();
 
-            // crea una nueva sesion_turno con todos los datos
             Sesion_turno turno = new Sesion_turno(fechaInicio, fechaFin, tratamiento, consultorio, masajista, instalaciones, diaDeSpa, estado);
 
-            // guarda la sesion_turno en la base de datos
             TurnoData td = new TurnoData(conexion);
             td.guardarTurno(turno);
 
+            DiaDeSpaData dd = new DiaDeSpaData(conexion);
+            double valorFinal = 0;
+            if (tratamiento != null) {
+                valorFinal += tratamiento.getCosto();
+            }
+            if (instalacion != null) {
+                valorFinal += instalacion.getPrecio30m();
+            }
+            diaDeSpa.setMonto(valorFinal);
+            dd.actualizarDiaDeSpa(diaDeSpa);
+
             JOptionPane.showMessageDialog(this, "Turno guardado correctamente");
-            jbNuevoActionPerformed(evt); // limpia campos
+            jbNuevoActionPerformed(evt);
+            cargarTurnosActivos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al guardar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -460,7 +543,7 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbConsultorioActionPerformed
 
     private void jcbInstalacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInstalacionActionPerformed
-        // TODO add your handling code here:
+        actualizarValorTurno();
     }//GEN-LAST:event_jcbInstalacionActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
@@ -472,7 +555,7 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
             }
 
             // valida que todos los campos obligatorios esten completos
-            if (jtfFechaHoraInicio.getText().isEmpty() || jtfFechaHoraFin.getText().isEmpty()
+            if (jtfFechaHoraInicio.getText().isEmpty() || jtfValor.getText().isEmpty()
                     || jcbTratamiento.getSelectedIndex() == -1 || jcbConsultorio.getSelectedIndex() == -1
                     || jcbMasajista.getSelectedIndex() == -1 || jcbDiaDeSpa.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -482,23 +565,26 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
             // parsea fechas
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime fechaInicio = LocalDateTime.parse(jtfFechaHoraInicio.getText(), dtf);
-            LocalDateTime fechaFin = LocalDateTime.parse(jtfFechaHoraFin.getText(), dtf);
+            LocalDateTime fechaFin = LocalDateTime.parse(jtfFechaHoraFin1.getText(), dtf);
 
             // obtiene objetos seleccionados
-            Tratamiento tratamiento = (Tratamiento) jcbTratamiento.getSelectedItem();
+            Tratamiento tratamientoNuevo = (Tratamiento) jcbTratamiento.getSelectedItem();
             Consultorio consultorio = (Consultorio) jcbConsultorio.getSelectedItem();
             Masajista masajista = (Masajista) jcbMasajista.getSelectedItem();
             DiaDeSpa diaDeSpa = (DiaDeSpa) jcbDiaDeSpa.getSelectedItem();
             Instalacion instalacion = (Instalacion) jcbInstalacion.getSelectedItem();
             List<Instalacion> instalaciones = new ArrayList<>();
             instalaciones.add(instalacion);
-
             boolean estado = jcbActivo.isSelected();
+
+            // calcula diferencia de monto si cambio el tratamiento
+            double montoAnterior = turnoActual.getTratamiento().getCosto();
+            double montoNuevo = tratamientoNuevo.getCosto();
 
             // actualiza los datos del turno existente
             turnoActual.setFechaHoraInicio(fechaInicio);
             turnoActual.setFechaHoraFin(fechaFin);
-            turnoActual.setTratamiento(tratamiento);
+            turnoActual.setTratamiento(tratamientoNuevo);
             turnoActual.setConsultorio(consultorio);
             turnoActual.setMasajista(masajista);
             turnoActual.setDiaDeSpa(diaDeSpa);
@@ -509,8 +595,20 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
             TurnoData td = new TurnoData(conexion);
             td.actualizarTurno(turnoActual);
 
+            DiaDeSpaData dd = new DiaDeSpaData(conexion);
+            double valorFinal = 0;
+            if (tratamientoNuevo != null) {
+                valorFinal += tratamientoNuevo.getCosto();
+            }
+            if (instalacion != null) {
+                valorFinal += instalacion.getPrecio30m();
+            }
+            diaDeSpa.setMonto(valorFinal);
+            dd.actualizarDiaDeSpa(diaDeSpa);
+
             JOptionPane.showMessageDialog(this, "Turno modificado correctamente");
             jbNuevoActionPerformed(evt); // limpia campos
+            cargarTurnosActivos();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al modificar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -547,17 +645,14 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         try {
-            // obtiene codigo del turno ingresado y valida
             String codigoStr = jtfCodigoTurno.getText().trim();
             if (codigoStr.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Debes ingresar el codigo del turno", "Buscar", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            // convierte el codigo a entero
             int codTurno = Integer.parseInt(codigoStr);
 
-            // busca turno en la base de datos
             TurnoData td = new TurnoData(conexion);
             turnoActual = td.buscarTurno(codTurno);
 
@@ -566,72 +661,145 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
                 return;
             }
 
-            // llena los campos de la interfaz con los datos del turno encontrado
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            // FECHAS
             jtfFechaHoraInicio.setText(turnoActual.getFechaHoraInicio().format(dtf));
-            jtfFechaHoraFin.setText(turnoActual.getFechaHoraFin().format(dtf));
+            jtfFechaHoraFin1.setText(turnoActual.getFechaHoraFin().format(dtf));
+
+            // VALOR DEL TRATAMIENTO
+            jtfValor.setText(String.valueOf(turnoActual.getTratamiento().getCosto()));
+
+            // ESTADO
             jcbActivo.setSelected(turnoActual.isEstado());
 
-            // selecciona tratamiento en combo
+            // TRATAMIENTO
             Tratamiento tratamiento = turnoActual.getTratamiento();
             for (int i = 0; i < jcbTratamiento.getItemCount(); i++) {
                 Object item = jcbTratamiento.getItemAt(i);
-                if (item != null && item.equals(tratamiento)) {
+                if (item instanceof Tratamiento && ((Tratamiento) item).getCodTratam() == tratamiento.getCodTratam()) {
                     jcbTratamiento.setSelectedIndex(i);
                     break;
                 }
             }
 
-            // selecciona masajista en combo
+            // MASAJISTA
             Masajista masajista = turnoActual.getMasajista();
             for (int i = 0; i < jcbMasajista.getItemCount(); i++) {
                 Object item = jcbMasajista.getItemAt(i);
-                if (item != null && item.equals(masajista)) {
-                    jcbMasajista.setSelectedIndex(i);
-                    break;
+                if (item instanceof Masajista) {
+                    Masajista m = (Masajista) item;
+                    if (String.valueOf(m.getMatricula()).equals(String.valueOf(masajista.getMatricula()))) {
+                        jcbMasajista.setSelectedIndex(i);
+                        break;
+                    }
                 }
             }
 
-            // selecciona instalacion en combo
+            // INSTALACION
             if (!turnoActual.getInstalaciones().isEmpty()) {
                 Instalacion instalacion = turnoActual.getInstalaciones().get(0);
                 for (int i = 0; i < jcbInstalacion.getItemCount(); i++) {
                     Object item = jcbInstalacion.getItemAt(i);
-                    if (item != null && item.equals(instalacion)) {
+                    if (item instanceof Instalacion && ((Instalacion) item).getCodInstal() == instalacion.getCodInstal()) {
                         jcbInstalacion.setSelectedIndex(i);
                         break;
                     }
                 }
             }
 
-            // selecciona consultorio en combo
+            // CONSULTORIO
             Consultorio consultorio = turnoActual.getConsultorio();
             for (int i = 0; i < jcbConsultorio.getItemCount(); i++) {
-                Consultorio item = jcbConsultorio.getItemAt(i);
-                if (item != null && item.getNroConsultorio() == consultorio.getNroConsultorio()) {
+                Object item = jcbConsultorio.getItemAt(i);
+                if (item instanceof Consultorio && ((Consultorio) item).getNroConsultorio() == consultorio.getNroConsultorio()) {
                     jcbConsultorio.setSelectedIndex(i);
                     break;
                 }
             }
 
-            // selecciona dia de spa en combo
+            // DIA DE SPA
             DiaDeSpa diaDeSpa = turnoActual.getDiaDeSpa();
             for (int i = 0; i < jcbDiaDeSpa.getItemCount(); i++) {
-                DiaDeSpa item = jcbDiaDeSpa.getItemAt(i);
-                if (item != null && item.getCodPack() == diaDeSpa.getCodPack()) {
+                Object item = jcbDiaDeSpa.getItemAt(i);
+                if (item instanceof DiaDeSpa && ((DiaDeSpa) item).getCodPack() == diaDeSpa.getCodPack()) {
                     jcbDiaDeSpa.setSelectedIndex(i);
                     break;
                 }
             }
 
         } catch (NumberFormatException e) {
-            // captura error si el codigo no es un numero
             JOptionPane.showMessageDialog(this, "El codigo del turno debe ser un numero", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-            // captura otros errores
             JOptionPane.showMessageDialog(this, "Error al buscar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jcbTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTratamientoActionPerformed
+        actualizarValorTurno();
+    }//GEN-LAST:event_jcbTratamientoActionPerformed
+
+    private void jcbTurnosActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTurnosActivosActionPerformed
+        Sesion_turno turnoSeleccionado = (Sesion_turno) jcbTurnosActivos.getSelectedItem();
+        if (turnoSeleccionado != null) {
+            turnoActual = turnoSeleccionado;
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            jtfCodigoTurno.setText(String.valueOf(turnoActual.getCodSesion()));
+            jtfFechaHoraInicio.setText(turnoActual.getFechaHoraInicio().format(dtf));
+            jtfFechaHoraFin1.setText(turnoActual.getFechaHoraFin().format(dtf));
+            jtfValor.setText(String.valueOf(turnoActual.getTratamiento().getCosto()));
+            jcbActivo.setSelected(turnoActual.isEstado());
+
+            // Selección de tratamiento
+            for (int i = 0; i < jcbTratamiento.getItemCount(); i++) {
+                Object item = jcbTratamiento.getItemAt(i);
+                if (item instanceof Tratamiento && ((Tratamiento) item).getCodTratam() == turnoActual.getTratamiento().getCodTratam()) {
+                    jcbTratamiento.setSelectedIndex(i);
+                    break;
+                }
+            }
+
+            // Selección de masajista
+            for (int i = 0; i < jcbMasajista.getItemCount(); i++) {
+                Object item = jcbMasajista.getItemAt(i);
+                if (item instanceof Masajista && ((Masajista) item).getMatricula().equals(turnoActual.getMasajista().getMatricula())) {
+                    jcbMasajista.setSelectedIndex(i);
+                    break;
+                }
+            }
+
+            // Instalación
+            if (!turnoActual.getInstalaciones().isEmpty()) {
+                Instalacion instalacion = turnoActual.getInstalaciones().get(0);
+                for (int i = 0; i < jcbInstalacion.getItemCount(); i++) {
+                    Object item = jcbInstalacion.getItemAt(i);
+                    if (item instanceof Instalacion && ((Instalacion) item).getCodInstal() == instalacion.getCodInstal()) {
+                        jcbInstalacion.setSelectedIndex(i);
+                        break;
+                    }
+                }
+            }
+
+            // Consultorio
+            for (int i = 0; i < jcbConsultorio.getItemCount(); i++) {
+                Object item = jcbConsultorio.getItemAt(i);
+                if (item instanceof Consultorio && ((Consultorio) item).getNroConsultorio() == turnoActual.getConsultorio().getNroConsultorio()) {
+                    jcbConsultorio.setSelectedIndex(i);
+                    break;
+                }
+            }
+
+            // Día de spa
+            for (int i = 0; i < jcbDiaDeSpa.getItemCount(); i++) {
+                Object item = jcbDiaDeSpa.getItemAt(i);
+                if (item instanceof DiaDeSpa && ((DiaDeSpa) item).getCodPack() == turnoActual.getDiaDeSpa().getCodPack()) {
+                    jcbDiaDeSpa.setSelectedIndex(i);
+                    break;
+                }
+            }
+        }
+    }//GEN-LAST:event_jcbTurnosActivosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCliente;
@@ -640,6 +808,8 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jEstado;
     private javax.swing.JLabel jEstado1;
     private javax.swing.JLabel jEstado2;
+    private javax.swing.JLabel jEstado3;
+    private javax.swing.JLabel jEstado4;
     private javax.swing.JLabel jFecha;
     private javax.swing.JLabel jGestionTurnos;
     private javax.swing.JLabel jHora;
@@ -655,8 +825,10 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Instalacion> jcbInstalacion;
     private javax.swing.JComboBox<Masajista> jcbMasajista;
     private javax.swing.JComboBox<Tratamiento> jcbTratamiento;
+    private javax.swing.JComboBox<Sesion_turno> jcbTurnosActivos;
     private javax.swing.JTextField jtfCodigoTurno;
-    private javax.swing.JTextField jtfFechaHoraFin;
+    private javax.swing.JTextField jtfFechaHoraFin1;
     private javax.swing.JTextField jtfFechaHoraInicio;
+    private javax.swing.JTextField jtfValor;
     // End of variables declaration//GEN-END:variables
 }

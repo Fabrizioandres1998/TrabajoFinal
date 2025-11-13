@@ -95,6 +95,28 @@ public class InstalacionData {
         return lista;
     }
 
+    public List<Instalacion> listarInstalacionesActivas() {
+        List<Instalacion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM instalacion WHERE estado = 1";
+        try {
+            PreparedStatement ps = conex.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Instalacion i = new Instalacion();
+                i.setCodInstal(rs.getInt("codInstal"));
+                i.setNombre(rs.getString("nombre"));
+                i.setdetalle_de_uso(rs.getString("detalle_de_uso"));
+                i.setPrecio30m(rs.getDouble("precio30m"));
+                i.setEstado(rs.getBoolean("estado"));
+                lista.add(i);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("Error al listar instalaciones activas: " + ex.getMessage());
+        }
+        return lista;
+    }
+
     public void eliminarInstalacion(int codInstal) {
         String sql = "UPDATE instalacion SET estado=0 WHERE codInstal=?";
         try {

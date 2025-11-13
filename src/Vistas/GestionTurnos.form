@@ -46,65 +46,81 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="jbNuevo" min="-2" pref="47" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jbGuardar" min="-2" pref="69" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jbModificar" min="-2" pref="71" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jbEliminar" min="-2" pref="64" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                          <Component id="jbBuscar" min="-2" pref="66" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Component id="jEstado4" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
-                          <Component id="jGestionTurnos" min="-2" pref="194" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                  <Component id="jCliente" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jMasajista" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jFecha" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jHora" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jCodigoTurno" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                          <Component id="jbNuevo" min="-2" pref="47" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jbGuardar" min="-2" pref="69" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jbModificar" min="-2" pref="71" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="jbEliminar" min="-2" pref="64" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                          <Component id="jbBuscar" min="-2" pref="66" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jEstado1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jEstado2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
+                                          <Component id="jGestionTurnos" min="-2" pref="194" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                          <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jCliente" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jMasajista" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jCodigoTurno" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jFecha" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jHora" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jEstado" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jEstado1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jEstado2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jEstado3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jtfFechaHoraFin1" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jcbTratamiento" max="32767" attributes="0"/>
+                                      <Component id="jcbConsultorio" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jtfValor" min="-2" pref="197" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jcbMasajista" alignment="0" pref="203" max="32767" attributes="0"/>
+                                                  <Component id="jtfCodigoTurno" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jcbInstalacion" max="32767" attributes="0"/>
+                                                  <Component id="jcbDiaDeSpa" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="jtfFechaHoraInicio" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Component id="jcbTurnosActivos" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jcbMasajista" alignment="0" pref="203" max="32767" attributes="0"/>
-                                  <Component id="jtfCodigoTurno" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jcbInstalacion" max="32767" attributes="0"/>
-                                  <Component id="jcbDiaDeSpa" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jtfFechaHoraInicio" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                      <Component id="jtfFechaHoraFin" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="jcbTratamiento" max="32767" attributes="0"/>
-                              <Component id="jcbConsultorio" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <EmptySpace pref="16" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="65" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -129,9 +145,9 @@
                   </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jMasajista" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jtfFechaHoraFin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfFechaHoraFin1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jFecha" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jcbTratamiento" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -152,11 +168,21 @@
                       <Component id="jcbInstalacion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jEstado2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jcbDiaDeSpa" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jcbDiaDeSpa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jEstado2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="69" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jEstado3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jtfValor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jEstado4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jcbTurnosActivos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="7" max="32767" attributes="0"/>
                   <Component id="jcbActivo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -385,7 +411,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jtfFechaHoraInicio">
         </Component>
-        <Component class="javax.swing.JTextField" name="jtfFechaHoraFin">
+        <Component class="javax.swing.JTextField" name="jtfValor">
         </Component>
         <Component class="javax.swing.JComboBox" name="jcbTratamiento">
           <Properties>
@@ -393,6 +419,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbTratamientoActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Tratamiento&gt;"/>
           </AuxValues>
@@ -408,6 +437,37 @@
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Consultorio&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jEstado3">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Valor:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="jtfFechaHoraFin1">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jEstado4">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Turnos activos"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jcbTurnosActivos">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbTurnosActivosActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Sesion_turno&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>

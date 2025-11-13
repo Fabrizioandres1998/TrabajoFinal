@@ -21,6 +21,25 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
     public GestiondeMasajistas(Conexion conexion) {
         initComponents();
         this.conexion = conexion;
+        cargarMasajistasActivos();
+        jbNuevoActionPerformed(null);
+    }
+
+    private void cargarMasajistasActivos() {
+        try {
+            MasajistaData md = new MasajistaData(conexion);
+            java.util.List<Masajista> lista = md.listarMasajistasActivos();
+
+            jComboBox1.removeAllItems(); // limpia el combo
+
+            for (Masajista m : lista) {
+                jComboBox1.addItem(m);
+            }
+
+            jComboBox1.setSelectedIndex(-1); // sin selección inicial
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar masajistas activos: " + e.getMessage());
+        }
     }
 
     /**
@@ -45,9 +64,10 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
         jbNuevo = new javax.swing.JButton();
         jbGuardar = new javax.swing.JButton();
         jbModificar = new javax.swing.JButton();
-        jbEliminar = new javax.swing.JButton();
         jbBuscar = new javax.swing.JButton();
         jcbEspecialidad = new javax.swing.JComboBox<>();
+        jTelefono1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -103,15 +123,6 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jbEliminar.setText("Eliminar");
-        jbEliminar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
-        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEliminarActionPerformed(evt);
-            }
-        });
-
         jbBuscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbBuscar.setText("Buscar");
         jbBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 0, 204)));
@@ -128,6 +139,15 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
             }
         });
 
+        jTelefono1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jTelefono1.setText("Masajistas activos");
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         jDesktopPane1.setLayer(jGestionDeMasajista, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jCodigoMasajista, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jNombreCompleto, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -140,9 +160,10 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jbNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbModificar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jbEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jbBuscar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jcbEspecialidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jTelefono1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jComboBox1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -151,41 +172,45 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jNombreCompleto)
-                            .addComponent(jCodigoMasajista)
-                            .addComponent(jEspecialidad)
-                            .addComponent(jTelefono))
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jcbActivo))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(64, 64, 64)
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jtfMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                                                .addComponent(jtfNombre))
-                                            .addGap(0, 0, Short.MAX_VALUE))
-                                        .addComponent(jtfTelefono))))))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(132, 132, 132)
-                        .addComponent(jGestionDeMasajista)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jGestionDeMasajista))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)
+                                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jNombreCompleto)
+                                    .addComponent(jCodigoMasajista)
+                                    .addComponent(jEspecialidad)
+                                    .addComponent(jTelefono)
+                                    .addComponent(jTelefono1))
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane1Layout.createSequentialGroup()
+                                        .addGap(29, 29, 29)
+                                        .addComponent(jcbActivo))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane1Layout.createSequentialGroup()
+                                        .addGap(64, 64, 64)
+                                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jcbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(jtfMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                                        .addComponent(jtfNombre))
+                                                    .addGap(0, 0, Short.MAX_VALUE))
+                                                .addComponent(jtfTelefono))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jDesktopPane1Layout.createSequentialGroup()
+                                        .addGap(58, 58, 58)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jbEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                .addGap(35, 35, 35)
+                .addGap(61, 61, 61)
                 .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
         );
@@ -212,12 +237,15 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
                     .addComponent(jtfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jcbActivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTelefono1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
@@ -268,6 +296,7 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
             jtfTelefono.setText("");
             jcbEspecialidad.setSelectedIndex(-1);
             jcbActivo.setSelected(false);
+            cargarMasajistasActivos();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -290,7 +319,14 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
                 masajistaActual = m;
                 jtfNombre.setText(m.getNombreYApellido());
                 jtfTelefono.setText(m.getTelefono());
-                jcbEspecialidad.setSelectedItem(m.getEspecialidad());
+                for (int i = 0; i < jcbEspecialidad.getItemCount(); i++) {
+                    String item = jcbEspecialidad.getItemAt(i).toString().trim();
+                    if (item.equalsIgnoreCase(m.getEspecialidad().trim())) {
+                        jcbEspecialidad.setSelectedIndex(i);
+                        break;
+                    }
+                }
+
                 jcbActivo.setSelected(m.isEstado());
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró ningún masajista con esa matrícula", "No encontrado", JOptionPane.INFORMATION_MESSAGE);
@@ -343,42 +379,12 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
             jcbEspecialidad.setSelectedIndex(-1); // <- cambio: dejar el combo vacio despues
             jcbActivo.setSelected(false);
             masajistaActual = null;
+            cargarMasajistasActivos();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbModificarActionPerformed
-
-    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        try {
-            if (masajistaActual == null) {
-                JOptionPane.showMessageDialog(this, "Debes buscar un masajista antes de eliminarlo", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            int confirmacion = JOptionPane.showConfirmDialog(this,
-                    "Seguro que deseas eliminar este masajista?",
-                    "Confirmar eliminacion",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                MasajistaData md = new MasajistaData(conexion);
-                md.bajaFisicaMasajista(masajistaActual.getMatricula());
-                JOptionPane.showMessageDialog(this, "Masajista eliminado correctamente");
-
-                jtfMatricula.setText("");
-                jtfNombre.setText("");
-                jtfTelefono.setText("");
-                jcbEspecialidad.setSelectedIndex(-1); // limpiar el combo completamente
-                jcbActivo.setSelected(false);
-
-                masajistaActual = null;
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error al eliminar el masajista: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         jtfMatricula.setText("");
@@ -393,16 +399,36 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbEspecialidadActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        Masajista seleccionado = (Masajista) jComboBox1.getSelectedItem();
+        if (seleccionado != null) {
+            masajistaActual = seleccionado;
+            jtfMatricula.setText(seleccionado.getMatricula());
+            jtfNombre.setText(seleccionado.getNombreYApellido());
+            jtfTelefono.setText(seleccionado.getTelefono());
+            for (int i = 0; i < jcbEspecialidad.getItemCount(); i++) {
+                String item = jcbEspecialidad.getItemAt(i).toString().trim();
+                if (item.equalsIgnoreCase(seleccionado.getEspecialidad().trim())) {
+                    jcbEspecialidad.setSelectedIndex(i);
+                    break;
+                }
+            }
+
+            jcbActivo.setSelected(seleccionado.isEstado());
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCodigoMasajista;
+    private javax.swing.JComboBox<Masajista> jComboBox1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jEspecialidad;
     private javax.swing.JLabel jGestionDeMasajista;
     private javax.swing.JLabel jNombreCompleto;
     private javax.swing.JLabel jTelefono;
+    private javax.swing.JLabel jTelefono1;
     private javax.swing.JButton jbBuscar;
-    private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbModificar;
     private javax.swing.JButton jbNuevo;
