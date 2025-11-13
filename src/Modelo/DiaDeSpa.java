@@ -176,6 +176,6 @@ public class DiaDeSpa {
 
     @Override
     public String toString() {
-        return "Día de Spa N° " + codPack;
+        return "N° " + codPack + "  |  " + "Fecha y hora: " + fechaYHora;
     }
 }

@@ -23,11 +23,13 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
             }
         });
     }
-public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+
+    public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         int x = (desktopPane.getWidth() - this.getWidth()) / 2;
         int y = (desktopPane.getHeight() - this.getHeight()) / 2;
         this.setLocation(x, y);
     }
+
     private void cargarClienteSeleccionado() {
         try {
             if (jcbClientesActivos.getSelectedItem() == null) {
@@ -352,23 +354,53 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
     }//GEN-LAST:event_jtfAfeccionesActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        String regexNumerico = "^[0-9]+$";
+        // expresiones regulares
+        String regexDni = "^[0-9]{8}$"; // exactamente 8 digitos
+        String regexTelefono = "^[0-9]+$"; // solo numeros
+        String regexEdad = "^[0-9]+$"; // solo numeros
+        String regexNombre = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"; // solo letras y espacios
 
         try {
-            String textoDni = jtfDni.getText();
-            String nombreCompleto = jtfNombreCompleto.getText();
-            String textoTelefono = jtfTelefono.getText();
-            String textoEdad = jtfEdad.getText();
-            String afecciones = jtfAfecciones.getText();
+            String textoDni = jtfDni.getText().trim();
+            String nombreCompleto = jtfNombreCompleto.getText().trim();
+            String textoTelefono = jtfTelefono.getText().trim();
+            String textoEdad = jtfEdad.getText().trim();
+            String afecciones = jtfAfecciones.getText().trim();
             boolean estado = jcbActivo.isSelected();
 
+            // verifica que los campos obligatorios no esten vacios
             if (textoDni.isEmpty() || nombreCompleto.isEmpty() || textoTelefono.isEmpty() || textoEdad.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "debes rellenar todos los campos obligatorios.",
+                        "campos vacios",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            if (!textoDni.matches(regexNumerico) || !textoTelefono.matches(regexNumerico) || !textoEdad.matches(regexNumerico)) {
-                JOptionPane.showMessageDialog(this, "DNI, Telefono y Edad deben contener solo numeros", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            // valida formato de dni
+            if (!textoDni.matches(regexDni)) {
+                JOptionPane.showMessageDialog(this,
+                        "el dni debe contener exactamente 8 digitos numericos (ejemplo: 41084990).",
+                        "dni invalido",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // valida nombre completo
+            if (!nombreCompleto.matches(regexNombre)) {
+                JOptionPane.showMessageDialog(this,
+                        "el nombre solo puede contener letras y espacios.",
+                        "nombre invalido",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // valida telefono y edad
+            if (!textoTelefono.matches(regexTelefono) || !textoEdad.matches(regexEdad)) {
+                JOptionPane.showMessageDialog(this,
+                        "telefono y edad deben contener solo numeros.",
+                        "formato invalido",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -376,49 +408,75 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             long telefono = Long.parseLong(textoTelefono);
             int edad = Integer.parseInt(textoEdad);
 
+            // crea el cliente y lo guarda en la base de datos
             Cliente c = new Cliente(dni, nombreCompleto, telefono, edad, afecciones, estado);
             ClienteData cd = new ClienteData(conexion);
             cd.guardarCliente(c);
-            JOptionPane.showMessageDialog(this, "Cliente guardado correctamente");
+            JOptionPane.showMessageDialog(this, "cliente guardado correctamente.");
 
+            // limpia los campos
+            jtfCodigoCliente.setText("");
             jtfDni.setText("");
             jtfNombreCompleto.setText("");
             jtfTelefono.setText("");
             jtfEdad.setText("");
             jtfAfecciones.setText("");
             jcbActivo.setSelected(false);
-            cargarClientesActivos(); // refresca el combobox
+
+            // actualiza el combo con los clientes activos
+            cargarClientesActivos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "ocurrio un error: " + e.getMessage(),
+                    "error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private Cliente clienteActual;
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        String regexNumerico = "^[0-9]+$";
+        // expresiones regulares
+        String regexDni = "^[0-9]{8}$"; // exactamente 8 digitos
+        String regexNumerico = "^[0-9]+$"; // solo numeros
+        String regexNombre = "^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"; // solo letras y espacios
 
         try {
+            // verifica que haya un cliente seleccionado
             if (clienteActual == null) {
-                JOptionPane.showMessageDialog(this, "Primero debes buscar un cliente", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "primero debes buscar un cliente", "error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            String textoDni = jtfDni.getText();
-            String nombreCompleto = jtfNombreCompleto.getText();
-            String textoTelefono = jtfTelefono.getText();
-            String textoEdad = jtfEdad.getText();
-            String afecciones = jtfAfecciones.getText();
+            String textoDni = jtfDni.getText().trim();
+            String nombreCompleto = jtfNombreCompleto.getText().trim();
+            String textoTelefono = jtfTelefono.getText().trim();
+            String textoEdad = jtfEdad.getText().trim();
+            String afecciones = jtfAfecciones.getText().trim();
             boolean estado = jcbActivo.isSelected();
 
+            // verifica que los campos obligatorios no esten vacios
             if (textoDni.isEmpty() || nombreCompleto.isEmpty() || textoTelefono.isEmpty() || textoEdad.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes rellenar todos los campos obligatorios", "campos vacios", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            if (!textoDni.matches(regexNumerico) || !textoTelefono.matches(regexNumerico) || !textoEdad.matches(regexNumerico)) {
-                JOptionPane.showMessageDialog(this, "DNI, Telefono y Edad deben contener solo numeros", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            // valida que el dni tenga exactamente 8 digitos
+            if (!textoDni.matches(regexDni)) {
+                JOptionPane.showMessageDialog(this, "el dni debe tener exactamente 8 digitos numericos (ejemplo: 41084990)", "dni invalido", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // valida que el nombre solo contenga letras y espacios
+            if (!nombreCompleto.matches(regexNombre)) {
+                JOptionPane.showMessageDialog(this, "el nombre solo puede contener letras y espacios", "nombre invalido", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // valida que telefono y edad sean numericos
+            if (!textoTelefono.matches(regexNumerico) || !textoEdad.matches(regexNumerico)) {
+                JOptionPane.showMessageDialog(this, "telefono y edad deben contener solo numeros", "error de formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -426,6 +484,7 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             long telefono = Long.parseLong(textoTelefono);
             int edad = Integer.parseInt(textoEdad);
 
+            // actualiza los datos del cliente actual
             clienteActual.setDni(dni);
             clienteActual.setNombreCompleto(nombreCompleto);
             clienteActual.setTelefono(telefono);
@@ -433,11 +492,13 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             clienteActual.setAfecciones(afecciones);
             clienteActual.setEstado(estado);
 
+            // guarda los cambios en la base de datos
             ClienteData cd = new ClienteData(conexion);
             cd.actualizarCliente(clienteActual);
 
-            JOptionPane.showMessageDialog(this, "Cliente actualizado correctamente");
+            JOptionPane.showMessageDialog(this, "cliente actualizado correctamente");
 
+            // limpia los campos
             jtfDni.setText("");
             jtfNombreCompleto.setText("");
             jtfTelefono.setText("");
@@ -446,10 +507,11 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             jcbActivo.setSelected(false);
             clienteActual = null;
 
-            cargarClientesActivos(); // refresca el combobox
+            // refresca el combo con los clientes activos
+            cargarClientesActivos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrip un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ocurrio un error: " + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 

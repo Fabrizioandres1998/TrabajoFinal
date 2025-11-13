@@ -58,11 +58,13 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar tratamientos: " + e.getMessage());
         }
     }
-public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+
+    public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         int x = (desktopPane.getWidth() - this.getWidth()) / 2;
         int y = (desktopPane.getHeight() - this.getHeight()) / 2;
         this.setLocation(x, y);
     }
+
     private void cargarTurnosActivos() {
         try {
             TurnoData td = new TurnoData(conexion);
@@ -289,6 +291,12 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         jEstado2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jEstado2.setText("Dia de spa:");
 
+        jcbDiaDeSpa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbDiaDeSpaActionPerformed(evt);
+            }
+        });
+
         jcbTratamiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbTratamientoActionPerformed(evt);
@@ -498,17 +506,35 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         try {
+            // valida que todos los campos obligatorios esten completos
             if (jtfFechaHoraInicio.getText().isEmpty() || jtfValor.getText().isEmpty()
                     || jcbTratamiento.getSelectedIndex() == -1 || jcbConsultorio.getSelectedIndex() == -1
                     || jcbMasajista.getSelectedIndex() == -1 || jcbDiaDeSpa.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes completar todos los campos", "error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            // expresion regular para validar formato de fecha y hora
+            String regexFechaHora = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
+
+            // valida formato de fecha y hora inicio
+            if (!jtfFechaHoraInicio.getText().matches(regexFechaHora)) {
+                JOptionPane.showMessageDialog(this, "formato de fecha y hora inicio invalido. usa: aaaa-mm-dd hh:mm", "error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // valida formato de fecha y hora fin
+            if (!jtfFechaHoraFin1.getText().matches(regexFechaHora)) {
+                JOptionPane.showMessageDialog(this, "formato de fecha y hora fin invalido. usa: aaaa-mm-dd hh:mm", "error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // parsea fechas
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime fechaInicio = LocalDateTime.parse(jtfFechaHoraInicio.getText(), dtf);
             LocalDateTime fechaFin = LocalDateTime.parse(jtfFechaHoraFin1.getText(), dtf);
 
+            // obtiene objetos seleccionados
             Tratamiento tratamiento = (Tratamiento) jcbTratamiento.getSelectedItem();
             Consultorio consultorio = (Consultorio) jcbConsultorio.getSelectedItem();
             Masajista masajista = (Masajista) jcbMasajista.getSelectedItem();
@@ -518,11 +544,14 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             instalaciones.add(instalacion);
             boolean estado = jcbActivo.isSelected();
 
+            // crea el turno con los datos ingresados
             Sesion_turno turno = new Sesion_turno(fechaInicio, fechaFin, tratamiento, consultorio, masajista, instalaciones, diaDeSpa, estado);
 
+            // guarda el turno en la base de datos
             TurnoData td = new TurnoData(conexion);
             td.guardarTurno(turno);
 
+            // calcula y actualiza el monto del dia de spa
             DiaDeSpaData dd = new DiaDeSpaData(conexion);
             double valorFinal = 0;
             if (tratamiento != null) {
@@ -534,11 +563,13 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             diaDeSpa.setMonto(valorFinal);
             dd.actualizarDiaDeSpa(diaDeSpa);
 
-            JOptionPane.showMessageDialog(this, "Turno guardado correctamente");
+            // muestra mensaje de exito
+            JOptionPane.showMessageDialog(this, "turno guardado correctamente");
             jbNuevoActionPerformed(evt);
             cargarTurnosActivos();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            // captura cualquier error al guardar
+            JOptionPane.showMessageDialog(this, "error al guardar turno: " + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -554,7 +585,7 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         try {
             // valida que haya un turno cargado
             if (turnoActual == null) {
-                JOptionPane.showMessageDialog(this, "Debes buscar un turno antes de modificarlo", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes buscar un turno antes de modificarlo", "error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -562,7 +593,20 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             if (jtfFechaHoraInicio.getText().isEmpty() || jtfValor.getText().isEmpty()
                     || jcbTratamiento.getSelectedIndex() == -1 || jcbConsultorio.getSelectedIndex() == -1
                     || jcbMasajista.getSelectedIndex() == -1 || jcbDiaDeSpa.getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(this, "Debes completar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes completar todos los campos", "error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // expresion regular para validar formato de fecha y hora
+            String regexFechaHora = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$";
+
+            // valida formato de fecha inicio y fin
+            if (!jtfFechaHoraInicio.getText().matches(regexFechaHora)) {
+                JOptionPane.showMessageDialog(this, "formato de fecha y hora inicio invalido. usa: aaaa-mm-dd hh:mm", "error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!jtfFechaHoraFin1.getText().matches(regexFechaHora)) {
+                JOptionPane.showMessageDialog(this, "formato de fecha y hora fin invalido. usa: aaaa-mm-dd hh:mm", "error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -581,10 +625,6 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             instalaciones.add(instalacion);
             boolean estado = jcbActivo.isSelected();
 
-            // calcula diferencia de monto si cambio el tratamiento
-            double montoAnterior = turnoActual.getTratamiento().getCosto();
-            double montoNuevo = tratamientoNuevo.getCosto();
-
             // actualiza los datos del turno existente
             turnoActual.setFechaHoraInicio(fechaInicio);
             turnoActual.setFechaHoraFin(fechaFin);
@@ -599,6 +639,7 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             TurnoData td = new TurnoData(conexion);
             td.actualizarTurno(turnoActual);
 
+            // recalcula y actualiza el monto del dia de spa
             DiaDeSpaData dd = new DiaDeSpaData(conexion);
             double valorFinal = 0;
             if (tratamientoNuevo != null) {
@@ -610,11 +651,13 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             diaDeSpa.setMonto(valorFinal);
             dd.actualizarDiaDeSpa(diaDeSpa);
 
-            JOptionPane.showMessageDialog(this, "Turno modificado correctamente");
-            jbNuevoActionPerformed(evt); // limpia campos
+            // muestra mensaje de exito
+            JOptionPane.showMessageDialog(this, "turno modificado correctamente");
+            jbNuevoActionPerformed(evt);
             cargarTurnosActivos();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al modificar turno: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            // captura cualquier error al modificar
+            JOptionPane.showMessageDialog(this, "error al modificar turno: " + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 
@@ -804,6 +847,10 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             }
         }
     }//GEN-LAST:event_jcbTurnosActivosActionPerformed
+
+    private void jcbDiaDeSpaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbDiaDeSpaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbDiaDeSpaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCliente;

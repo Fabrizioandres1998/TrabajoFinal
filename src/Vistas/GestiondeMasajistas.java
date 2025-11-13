@@ -24,11 +24,13 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
         cargarMasajistasActivos();
         jbNuevoActionPerformed(null);
     }
-public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+
+    public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         int x = (desktopPane.getWidth() - this.getWidth()) / 2;
         int y = (desktopPane.getHeight() - this.getHeight()) / 2;
         this.setLocation(x, y);
     }
+
     private void cargarMasajistasActivos() {
         try {
             MasajistaData md = new MasajistaData(conexion);
@@ -271,31 +273,47 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
     private Masajista masajistaActual;
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        String regexNumerico = "^[0-9]+$";
-
         try {
+            // define regex para validar telefono de 10 digitos y nombre solo con letras y espacios
+            String regexTelefono = "^[0-9]{10}$";
+            String regexNombre = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$";
+
+            // obtiene los datos ingresados
             String nombre = jtfNombre.getText();
             String textoTelefono = jtfTelefono.getText();
             String especialidad = (String) jcbEspecialidad.getSelectedItem();
             boolean estado = jcbActivo.isSelected();
 
+            // valida campos obligatorios
             if (nombre.isEmpty() || textoTelefono.isEmpty() || especialidad == null) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes rellenar todos los campos obligatorios", "campos vacios", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            if (!textoTelefono.matches(regexNumerico)) {
-                JOptionPane.showMessageDialog(this, "Telefono debe contener solo numeros", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            // valida formato del nombre
+            if (!nombre.matches(regexNombre)) {
+                JOptionPane.showMessageDialog(this, "el nombre solo puede contener letras y espacios", "error de formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            // valida formato y largo del telefono
+            if (!textoTelefono.matches(regexTelefono)) {
+                JOptionPane.showMessageDialog(this, "telefono debe tener exactamente 10 numeros", "error de formato", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // convierte el telefono a tipo long
             long telefono = Long.parseLong(textoTelefono);
 
+            // crea el masajista y lo guarda en la base de datos
             Masajista m = new Masajista(nombre, String.valueOf(telefono), especialidad, estado);
             MasajistaData md = new MasajistaData(conexion);
             md.guardarMasajista(m);
-            JOptionPane.showMessageDialog(this, "Masajista guardado correctamente");
 
+            // muestra mensaje de exito
+            JOptionPane.showMessageDialog(this, "masajista guardado correctamente");
+
+            // limpia los campos del formulario
             jtfNombre.setText("");
             jtfTelefono.setText("");
             jcbEspecialidad.setSelectedIndex(-1);
@@ -303,7 +321,8 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             cargarMasajistasActivos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            // captura cualquier error y lo muestra
+            JOptionPane.showMessageDialog(this, "ocurrio un error: " + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -342,51 +361,68 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModificarActionPerformed
-        String regexNumerico = "^[0-9]+$";
-
         try {
+            // define regex para validar telefono de 10 digitos y nombre solo con letras y espacios
+            String regexTelefono = "^[0-9]{10}$";
+            String regexNombre = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+$";
+
+            // valida que haya un masajista cargado
             if (masajistaActual == null) {
-                JOptionPane.showMessageDialog(this, "Primero debes buscar un masajista", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes buscar un masajista antes de modificarlo", "error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            // obtiene los datos ingresados
             String matricula = jtfMatricula.getText().trim();
             String nombre = jtfNombre.getText().trim();
             String telefono = jtfTelefono.getText().trim();
             String especialidad = (String) jcbEspecialidad.getSelectedItem();
             boolean estado = jcbActivo.isSelected();
 
+            // valida que los campos obligatorios no esten vacios
             if (matricula.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || especialidad == null || especialidad.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos obligatorios", "Campos vacios", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes rellenar todos los campos obligatorios", "campos vacios", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            if (!telefono.matches(regexNumerico)) {
-                JOptionPane.showMessageDialog(this, "El telefono debe contener solo numeros", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            // valida formato del nombre
+            if (!nombre.matches(regexNombre)) {
+                JOptionPane.showMessageDialog(this, "el nombre solo puede contener letras y espacios", "error de formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
+            // valida formato y largo del telefono
+            if (!telefono.matches(regexTelefono)) {
+                JOptionPane.showMessageDialog(this, "telefono debe tener exactamente 10 numeros", "error de formato", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // actualiza los datos del masajista
             masajistaActual.setMatricula(matricula);
             masajistaActual.setNombreYApellido(nombre);
             masajistaActual.setTelefono(telefono);
             masajistaActual.setEspecialidad(especialidad);
             masajistaActual.setEstado(estado);
 
+            // guarda los cambios en la base de datos
             MasajistaData md = new MasajistaData(conexion);
             md.actualizarMasajista(masajistaActual);
 
-            JOptionPane.showMessageDialog(this, "Masajista actualizado correctamente");
+            // muestra mensaje de exito
+            JOptionPane.showMessageDialog(this, "masajista actualizado correctamente");
 
+            // limpia los campos del formulario
             jtfMatricula.setText("");
             jtfNombre.setText("");
             jtfTelefono.setText("");
-            jcbEspecialidad.setSelectedIndex(-1); // <- cambio: dejar el combo vacio despues
+            jcbEspecialidad.setSelectedIndex(-1);
             jcbActivo.setSelected(false);
             masajistaActual = null;
             cargarMasajistasActivos();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrio un error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            // captura cualquier error y lo muestra
+            JOptionPane.showMessageDialog(this, "ocurrio un error: " + e.getMessage(), "error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbModificarActionPerformed
 

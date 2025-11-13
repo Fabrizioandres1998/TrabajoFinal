@@ -38,12 +38,15 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
                 cargarDatosDiaDeSpa(seleccionado);
             }
         });
+        jbNuevoActionPerformed(null);
     }
-public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+
+    public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         int x = (desktopPane.getWidth() - this.getWidth()) / 2;
         int y = (desktopPane.getHeight() - this.getHeight()) / 2;
         this.setLocation(x, y);
     }
+
     private void cargarDatosDiaDeSpa(DiaDeSpa dia) {
         try {
             diaActual = dia;
@@ -128,7 +131,6 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         dia.setMonto(total);
         dd.actualizarDiaDeSpa(dia);
 
-        System.out.println("Monto total actualizado: $" + total);
     }
 
     @SuppressWarnings("unchecked")
@@ -278,59 +280,59 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jGestiondeDiasdeSpa)
-                .addGap(153, 153, 153))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                    .addGap(24, 24, 24)
-                                    .addComponent(jMasajista1)
-                                    .addGap(32, 32, 32))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jCliente)
-                                        .addComponent(jFecha))
-                                    .addGap(18, 18, 18)))
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jtfFecha)
-                                        .addComponent(jcbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jtfPreferencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jcbDiasDeSpaActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jMasajista3)
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jMasajista2)
-                                    .addComponent(jMasajista)))
-                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jcbTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jcbActivo)
-                                        .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addComponent(jCodigoDiadeSpa))
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(jbModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(37, 37, 37)
                         .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(58, 58, 58))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jCodigoDiadeSpa)
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jCliente)
+                                                .addComponent(jFecha))
+                                            .addGap(18, 18, 18))
+                                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                            .addGap(24, 24, 24)
+                                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jMasajista2)
+                                                .addComponent(jMasajista1))
+                                            .addGap(32, 32, 32)))
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jtfFecha)
+                                            .addComponent(jcbCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jtfPreferencias, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jtfMonto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jMasajista3)
+                                    .addComponent(jMasajista))
+                                .addGap(18, 18, 18)
+                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jcbActivo)
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jcbTurnos, 0, 160, Short.MAX_VALUE)
+                                        .addComponent(jcbDiasDeSpaActivos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jGestiondeDiasdeSpa)
+                .addGap(153, 153, 153))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,11 +357,11 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
                     .addComponent(jtfPreferencias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jMasajista2)
-                    .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jtfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jMasajista2))
+                .addGap(25, 25, 25)
                 .addComponent(jcbActivo)
-                .addGap(55, 55, 55)
+                .addGap(18, 18, 18)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jMasajista)
                     .addComponent(jcbTurnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -367,7 +369,7 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jMasajista3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcbDiasDeSpaActivos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(49, 49, 49)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -402,8 +404,8 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         try {
             // verifica si hay un dia de spa cargado; si no, muestra un mensaje de error
             if (diaActual == null) {
-                JOptionPane.showMessageDialog(this, "Debes buscar un Día de Spa antes de modificarlo.",
-                        "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes buscar un dia de spa antes de modificarlo.",
+                        "error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -413,21 +415,32 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             Sesion_turno turno = (Sesion_turno) jcbTurnos.getSelectedItem();
             boolean estado = jcbActivo.isSelected();
 
+            // expresion regular para validar el formato de fecha y hora
+            String regexFechaHora = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"; // formato aaaa-mm-dd hh:mm
+
             // valida que los campos obligatorios no esten vacios
             if (fechaStr.isEmpty() || cliente == null || turno == null) {
-                JOptionPane.showMessageDialog(this, "Debes completar todos los campos obligatorios.",
-                        "Campos vacios", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "debes completar todos los campos obligatorios.",
+                        "campos vacios", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            // convierte la cadena de fecha a un objeto LocalDateTime usando el formato especificado
+            // valida formato de fecha antes de convertirla
+            if (!fechaStr.matches(regexFechaHora)) {
+                JOptionPane.showMessageDialog(this,
+                        "el formato de la fecha y hora no es valido. usa el formato: aaaa-mm-dd hh:mm",
+                        "error de formato", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // convierte la cadena de fecha a un objeto localdatetime usando el formato especificado
             LocalDateTime fechaHora = LocalDateTime.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
             // crea una lista de sesiones, en este caso solo contiene la seleccionada
             List<Sesion_turno> sesiones = new ArrayList<>();
             sesiones.add(turno);
 
-            // actualiza los datos del diaActual con los nuevos valores
+            // actualiza los datos del diaactual con los nuevos valores
             diaActual.setFechaYHora(fechaHora);
             diaActual.setPreferencias(jtfPreferencias.getText());
             diaActual.setCliente(cliente);
@@ -464,19 +477,22 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             jtfMonto.setText(String.valueOf(montoTotal));
 
             // notifica que la modificacion fue exitosa y limpia los campos
-            JOptionPane.showMessageDialog(this, "Día de Spa modificado correctamente.\nMonto total: $" + montoTotal,
-                    "Exito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,
+                    "Día de spa modificado correctamente.",
+                    "Éxito",
+                    JOptionPane.INFORMATION_MESSAGE);
 
             jbNuevoActionPerformed(evt); // limpia campos
             cargarDiasDeSpaActivos();
+
         } catch (DateTimeParseException e) {
             // captura errores de formato de fecha y hora
-            JOptionPane.showMessageDialog(this, "Formato de fecha y hora invalido. Usa el formato: yyyy-MM-dd HH:mm",
-                    "Error de formato", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "formato de fecha y hora invalido. usa el formato: aaaa-mm-dd hh:mm",
+                    "error de formato", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             // captura cualquier otro error y lo muestra en consola y en mensaje
-            JOptionPane.showMessageDialog(this, "Error al modificar el Día de Spa: " + e.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "error al modificar el dia de spa: " + e.getMessage(),
+                    "error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }//GEN-LAST:event_jbModificarActionPerformed
@@ -488,11 +504,22 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             Cliente cliente = (Cliente) jcbCliente.getSelectedItem();
             boolean estado = jcbActivo.isSelected();
 
+            // expresion regular para validar formato de fecha y hora
+            String regexFechaHora = "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"; // formato aaaa-mm-dd hh:mm
+
             // valida que fecha y cliente esten completos
             if (fechaStr.isEmpty() || cliente == null) {
                 JOptionPane.showMessageDialog(this,
-                        "Debes ingresar la fecha y seleccionar un cliente.",
-                        "Campos vacios", JOptionPane.WARNING_MESSAGE);
+                        "debes ingresar la fecha y seleccionar un cliente",
+                        "campos vacios", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // valida formato de fecha antes de parsear
+            if (!fechaStr.matches(regexFechaHora)) {
+                JOptionPane.showMessageDialog(this,
+                        "el formato de la fecha y hora no es valido. usa el formato: aaaa-mm-dd hh:mm",
+                        "error de formato", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -527,9 +554,8 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
             // muestra el monto total y notifica exito
             jtfMonto.setText(String.format("%.2f", montoTotal));
             JOptionPane.showMessageDialog(this,
-                    "Día de spa guardado correctamente.\nCodigo: " + dia.getCodPack()
-                    + "\nMonto total: $" + montoTotal,
-                    "Exito", JOptionPane.INFORMATION_MESSAGE);
+                    "dia de spa guardado correctamente.\ncodigo: " + dia.getCodPack(),
+                    "exito", JOptionPane.INFORMATION_MESSAGE);
 
             jbNuevoActionPerformed(evt); // limpia campos
             cargarDiasDeSpaActivos();
@@ -537,13 +563,13 @@ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
         } catch (DateTimeParseException e) {
             // captura errores de formato de fecha
             JOptionPane.showMessageDialog(this,
-                    "Formato de fecha y hora invalido. Usa el formato: yyyy-MM-dd HH:mm",
-                    "Error de formato", JOptionPane.ERROR_MESSAGE);
+                    "formato de fecha y hora invalido. usa el formato: aaaa-mm-dd hh:mm",
+                    "error de formato", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             // captura otros errores
             JOptionPane.showMessageDialog(this,
-                    "Error al guardar el Día de Spa: " + e.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+                    "error al guardar el dia de spa: " + e.getMessage(),
+                    "error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
