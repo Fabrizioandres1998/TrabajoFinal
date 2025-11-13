@@ -31,6 +31,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         };
 
         this.setContentPane(jdpMenuPrincipal);
+         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+
+        setLocationRelativeTo(null);
 
         conexion = new Conexion(url, usuario, password);
         Connection conex = conexion.obtenerConexion();
@@ -157,6 +160,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jmiMasajistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMasajistaActionPerformed
         GestiondeMasajistas gdm = new GestiondeMasajistas(conexion);
         jdpMenuPrincipal.add(gdm);
+          int x = (jdpMenuPrincipal.getWidth() - gdm.getWidth()) / 2;
+    int y = (jdpMenuPrincipal.getHeight() - gdm.getHeight()) / 2;
+    gdm.setLocation(x, y);
         gdm.setVisible(true);
     }//GEN-LAST:event_jmiMasajistaActionPerformed
 
@@ -168,10 +174,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // Creamos la ventana interna de GestionDiaDeSpa
         GestionDiaDeSpa vistaDia = new GestionDiaDeSpa(conexion);
         vistaDia.setVisible(true);
-
+        // para centrar la pantalla
+ int x = (jdpMenuPrincipal.getWidth() - vistaDia.getWidth()) / 2;
+    int y = (jdpMenuPrincipal.getHeight() - vistaDia.getHeight()) / 2;
+    vistaDia.setLocation(x, y);
         // La agregamos al JDesktopPane y la traemos al frente
         jdpMenuPrincipal.add(vistaDia);
         jdpMenuPrincipal.moveToFront(vistaDia);
+        
     }//GEN-LAST:event_jmiDiaDeSpaActionPerformed
 
     private void jGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGestionActionPerformed
@@ -181,30 +191,45 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jmiClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiClienteActionPerformed
         GestionDeClientes gc = new GestionDeClientes(conexion);
         jdpMenuPrincipal.add(gc);
+        int x = (jdpMenuPrincipal.getWidth() - gc.getWidth()) / 2;
+    int y = (jdpMenuPrincipal.getHeight() - gc.getHeight()) / 2;
+    gc.setLocation(x, y);
         gc.setVisible(true);
     }//GEN-LAST:event_jmiClienteActionPerformed
 
     private void jmiTurnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTurnosActionPerformed
         GestionTurnos gt = new GestionTurnos(conexion);
         jdpMenuPrincipal.add(gt);
+         int x = (jdpMenuPrincipal.getWidth() - gt.getWidth()) / 2;
+    int y = (jdpMenuPrincipal.getHeight() - gt.getHeight()) / 2;
+    gt.setLocation(x, y);
         gt.setVisible(true);
     }//GEN-LAST:event_jmiTurnosActionPerformed
 
     private void jmiInstalacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInstalacionesActionPerformed
         GestiondeInstalaciones gi = new GestiondeInstalaciones(conexion);
         jdpMenuPrincipal.add(gi);
+         int x = (jdpMenuPrincipal.getWidth() - gi.getWidth()) / 2;
+    int y = (jdpMenuPrincipal.getHeight() - gi.getHeight()) / 2;
+    gi.setLocation(x, y);
         gi.setVisible(true);
     }//GEN-LAST:event_jmiInstalacionesActionPerformed
 
     private void jmiTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTratamientoActionPerformed
         GestiondeTratamientos gt = new GestiondeTratamientos(conexion);
         jdpMenuPrincipal.add(gt);
+         int x = (jdpMenuPrincipal.getWidth() - gt.getWidth()) / 2;
+    int y = (jdpMenuPrincipal.getHeight() - gt.getHeight()) / 2;
+    gt.setLocation(x, y);
         gt.setVisible(true);
     }//GEN-LAST:event_jmiTratamientoActionPerformed
 
     private void jmiConsultoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiConsultoriosActionPerformed
         GestionConsultorios gc = new GestionConsultorios(conexion);
         jdpMenuPrincipal.add(gc);
+        int x = (jdpMenuPrincipal.getWidth() - gc.getWidth()) / 2;
+    int y = (jdpMenuPrincipal.getHeight() - gc.getHeight()) / 2;
+    gc.setLocation(x, y);
         gc.setVisible(true);
     }//GEN-LAST:event_jmiConsultoriosActionPerformed
 

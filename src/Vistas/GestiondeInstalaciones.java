@@ -30,7 +30,11 @@ public class GestiondeInstalaciones extends javax.swing.JInternalFrame {
         cargarInstalacionesActivas();
         jbNuevoActionPerformed(null);
     }
-
+public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+        int x = (desktopPane.getWidth() - this.getWidth()) / 2;
+        int y = (desktopPane.getHeight() - this.getHeight()) / 2;
+        this.setLocation(x, y);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

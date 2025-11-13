@@ -19,7 +19,11 @@ public class GestiondeTratamientos extends javax.swing.JInternalFrame {
         cargarTratamientosActivos();
         jbNuevoActionPerformed(null);
     }
-
+public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+        int x = (desktopPane.getWidth() - this.getWidth()) / 2;
+        int y = (desktopPane.getHeight() - this.getHeight()) / 2;
+        this.setLocation(x, y);
+    }
     private void cargarTratamientosActivos() {
         try {
             TratamientoData td = new TratamientoData(conexion);
@@ -81,7 +85,7 @@ public class GestiondeTratamientos extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
 
-        jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jDesktopPane1.setBackground(new java.awt.Color(204, 204, 255));
 
         jGestionDeTratamientos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jGestionDeTratamientos.setForeground(new java.awt.Color(153, 0, 153));

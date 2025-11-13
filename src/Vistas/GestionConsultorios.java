@@ -28,7 +28,11 @@ public class GestionConsultorios extends javax.swing.JInternalFrame {
         cargarConsultoriosActivos();
         jbNuevoActionPerformed(null);
     }
-
+ public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+        int x = (desktopPane.getWidth() - this.getWidth()) / 2;
+        int y = (desktopPane.getHeight() - this.getHeight()) / 2;
+        this.setLocation(x, y);
+    }
     private void cargarConsultoriosActivos() {
         try {
             ConsultorioData cd = new ConsultorioData(conexion);

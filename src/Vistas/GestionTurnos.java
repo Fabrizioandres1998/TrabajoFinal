@@ -58,7 +58,11 @@ public class GestionTurnos extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Error al cargar tratamientos: " + e.getMessage());
         }
     }
-
+public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+        int x = (desktopPane.getWidth() - this.getWidth()) / 2;
+        int y = (desktopPane.getHeight() - this.getHeight()) / 2;
+        this.setLocation(x, y);
+    }
     private void cargarTurnosActivos() {
         try {
             TurnoData td = new TurnoData(conexion);

@@ -23,7 +23,11 @@ public class GestionDeClientes extends javax.swing.JInternalFrame {
             }
         });
     }
-
+public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+        int x = (desktopPane.getWidth() - this.getWidth()) / 2;
+        int y = (desktopPane.getHeight() - this.getHeight()) / 2;
+        this.setLocation(x, y);
+    }
     private void cargarClienteSeleccionado() {
         try {
             if (jcbClientesActivos.getSelectedItem() == null) {

@@ -39,7 +39,11 @@ public class GestionDiaDeSpa extends javax.swing.JInternalFrame {
             }
         });
     }
-
+public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+        int x = (desktopPane.getWidth() - this.getWidth()) / 2;
+        int y = (desktopPane.getHeight() - this.getHeight()) / 2;
+        this.setLocation(x, y);
+    }
     private void cargarDatosDiaDeSpa(DiaDeSpa dia) {
         try {
             diaActual = dia;

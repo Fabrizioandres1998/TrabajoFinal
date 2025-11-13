@@ -24,7 +24,11 @@ public class GestiondeMasajistas extends javax.swing.JInternalFrame {
         cargarMasajistasActivos();
         jbNuevoActionPerformed(null);
     }
-
+public void centrarEnDesktop(javax.swing.JDesktopPane desktopPane) {
+        int x = (desktopPane.getWidth() - this.getWidth()) / 2;
+        int y = (desktopPane.getHeight() - this.getHeight()) / 2;
+        this.setLocation(x, y);
+    }
     private void cargarMasajistasActivos() {
         try {
             MasajistaData md = new MasajistaData(conexion);
